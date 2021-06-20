@@ -13,6 +13,11 @@ var UserSchema = new mongoose.Schema({
 
     mileage:   Number,
 
+    myBooking:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Booking'
+    },
+
     isAdmin:{type: Boolean, default: false}
 });
 

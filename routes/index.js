@@ -85,11 +85,11 @@ router.get('/logout', function(req, res){
     res.redirect('/flight');
 });
 
-router.get('/user/profile',function(req, res){
+router.get('/user/profile',isLoggedIn , function(req, res){
     res.render('user/profile.ejs');
 });
 
-router.get('/user/booking',function(req, res){
+router.get('/user/booking',isLoggedIn , function(req, res){
     res.render('user/booking.ejs');
 });
 
@@ -97,7 +97,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
-    req.flash('error', 'You need to log in frist.')
+    req.flash('error', 'You need to log in frist.');
     res.redirect('/login');
 }
 

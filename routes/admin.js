@@ -24,12 +24,12 @@ var express = require('express'),
     Airport = require('../models/airport'),
     Flight  = require('../models/flight');
 
-router.get('/', function(req, res){
+router.get('/', isLoggedIn, isAdmin, function(req, res){
     res.redirect('/admin/flight');
 });
 
 // Flight
-router.get('/flight', function(req, res){
+router.get('/flight', isLoggedIn, isAdmin, function(req, res){
     res.render('admin/flight.ejs');
 });
 
@@ -199,7 +199,7 @@ router.post('/flight/add-new', function(req, res){
 
 
 // Airline
-router.get('/airline', function(req, res){
+router.get('/airline', isLoggedIn, isAdmin, function(req, res){
     Airline.find({}, function (err, airline_result) {
         if (err) {
             console.log(err);
@@ -211,7 +211,7 @@ router.get('/airline', function(req, res){
     }).sort({name:1});
 });
 
-router.get('/airline/add', function(req, res){
+router.get('/airline/add', isLoggedIn, isAdmin, function(req, res){
     res.render('./admin/airline-add.ejs');
 });
 
@@ -267,7 +267,7 @@ router.delete('/airline/:id/del', function (req, res) {
 
 
 // Airport
-router.get('/airport', function (req, res) {
+router.get('/airport', isLoggedIn, isAdmin, function (req, res) {
     Airport.find({}, function (err, airport_result) {
         if (err) {
             console.log(err);
@@ -279,7 +279,7 @@ router.get('/airport', function (req, res) {
     }).sort({IATA:1});;
 });
 
-router.get('/airport/add', function(req, res){
+router.get('/airport/add', isLoggedIn, isAdmin, function(req, res){
     res.render('./admin/airport-add.ejs');
 });
 
@@ -344,7 +344,7 @@ router.delete('/airport/:id/del', function (req, res) {
 
 
 // Aircraft
-router.get('/aircraft', function (req, res) {
+router.get('/aircraft' ,isLoggedIn ,isAdmin , function (req, res) {
     Aircraft.find({}, function (err, aircraft_result) {
         if (err) {
             console.log(err);
@@ -360,7 +360,7 @@ router.get('/aircraft/add', function(req, res){
     res.render('./admin/aircraft-add.ejs');
 });
 
-router.post('/aircraft/add-new', function (req, res) {
+router.post('/aircraft/add-new' ,isLoggedIn ,isAdmin , function (req, res) {
     var aircraftModel   = req.body.aircraftModel,
 
         ecoCheck    = req.body.ecoCheck,
@@ -447,5 +447,23 @@ router.delete('/aircraft/:id/del', function (req, res) {
         }
     });
 });
+
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    req.flash('error', 'You need to log in frist.');
+    res.redirect('/login');
+}
+
+function isAdmin(req, res, next){
+    if(req.user.isAdmin == true){
+        return next();
+    }
+    req.flash('error', "You are not admin. Don't do that ")
+    res.redirect('/');
+}
+
+
 
 module.exports = router;
