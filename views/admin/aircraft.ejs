@@ -1,0 +1,77 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<!-- heading -->
+<div class="detail-nav fix-nav fixed-top">
+    <a class="active" href="/admin/aircraft"><img src="/images/miniLOGO.png" class="brand-icon"><b> AIRCRAFT </b></a>
+    <a href="/admin/aircraft/add"><i class="bi bi-plus-circle"></i> Add </a>
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+</div>
+
+<!-- show detail -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 box-info">
+  
+  <% aircrafts.forEach((aircraft, index)=> { %>
+  <div class="col" style="margin-bottom: 10px">
+      
+    <div class="card h-100">
+      <div class="card-body">
+        <h3 class="card-title text-center"> <%= aircraft.aircraftModel %></h3><br>
+        <p class="card-text">
+            <b>Economy:</b> <br>
+            <% if (aircraft.economy.ecoCheck === true) { %>
+            <%= aircraft.economy.ecoSeatNumber %> seats |
+            <%= aircraft.economy.ecoSeatLayout %> |
+            pitch <%= aircraft.economy.ecoSeatPitch %> inch <br><br>
+            <% } else { %>
+            doesn't have <br><br>
+            <% } %>
+
+            
+            <b>Business:</b> <br>
+            <% if (aircraft.business.busCheck === true) { %>
+            <%= aircraft.business.busSeatNumber %> seats |
+            <%= aircraft.business.busSeatLayout %> |
+            pitch <%= aircraft.business.busSeatPitch %> inch <br><br>
+            <% } else { %>
+              doesn't have <br><br>
+            <% } %>
+
+            <b>First class:</b> <br>
+            <% if (aircraft.firstclass.firstCheck === true) { %>
+            <%= aircraft.firstclass.firstSeatNumber %> seats |
+            <%= aircraft.firstclass.firstSeatLayout %> |
+            pitch <%= aircraft.firstclass.firstSeatPitch %> inch <br>
+            <% } else { %>
+              doesn't have <br><br>
+            <% } %>
+        </p>
+      </div>
+  
+      <div class="card-body text-center">
+        <table>
+          <tr>
+            <form action='/admin/aircraft/<%= aircraft._id %>/edit' method="GET">
+              <button class="btn btn-warning btn-card-margin">Edit</button>
+            </form>
+          
+            <form action='/admin/aircraft/<%= aircraft._id %>/del?_method=delete' method="POST">
+              <button class="btn btn-danger btn-card-margin">Delete</button>
+            </form>
+          </tr>
+        </table>
+      </div>
+        
+    </div>
+  </div>
+  <% }) %>
+  
+</div>
+
+<%- include('../partials/footer-admin.ejs') %>
+

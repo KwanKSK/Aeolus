@@ -1,0 +1,49 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<!-- heading -->
+<div class="detail-nav fix-nav fixed-top">
+    <a class="active" href="/admin/airline"><img src="/images/miniLOGO.png" class="brand-icon"><b> AIRLINE </b></a>
+    <a href="/admin/airline/add"><i class="bi bi-plus-circle"></i> Add </a>
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+</div>
+
+<!-- show detail -->
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-6 box-info">
+  
+  <% airlines.forEach((airline, index)=> { %>
+  <div class="col" style="margin-bottom: 10px">
+    
+    <div class="card text-center h-100">
+      <img src="<%= airline.logo %>" class="card-img-top airline-m-icon" alt="...">
+      <div class="card-body">
+        <h3 class="card-title"> <%= airline.IATA %></h3>
+        <p class="card-text"> <%= airline.name %> </p>
+      </div>
+
+      <div class="card-body">
+        <table>
+          <tr>
+            <form action='/admin/airline/<%= airline._id %>/edit' method="GET">
+              <button class="btn btn-warning btn-card-margin">Edit</button>
+            </form>
+        
+            <form action='/admin/airline/<%= airline._id %>/del?_method=delete' method="POST">
+              <button class="btn btn-danger btn-card-margin">Delete</button>
+            </form>
+          </tr>
+        </table>
+      </div>
+      
+    </div>
+
+  </div>
+  <% }) %>
+</div>
+  
+<%- include('../partials/footer-admin.ejs') %>

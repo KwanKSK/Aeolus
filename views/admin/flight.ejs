@@ -1,0 +1,16 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<div class="detail-nav fix-nav fixed-top">
+    <a class="active" href="/admin/flight"><img src="/images/miniLOGO.png" class="brand-icon"><b> FLIGHT </b></a>
+    <a href="/admin/flight/add"><i class="bi bi-plus-circle"></i> Add </a>
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+</div>
+
+<%- include('../partials/footer-admin.ejs') %>
+<%- include('../partials/footer-admin.ejs') %>

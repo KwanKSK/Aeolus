@@ -1,0 +1,39 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<section class="add-info-box">
+    <h1> Add Airport</h1>
+    <form class="add-info-subbox" action='/admin/airport/add-new' method="POST">
+        <div class="container">
+            <div class="row">
+                <div class="mb-6 col-md-6">
+                    <label class="form-label">Airport Name</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="name"
+                            placeholder="Full name" required>
+                        <input type="text" class="form-control" name="IATA" 
+                            placeholder="IATA" required>   
+                    </div>                    
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-control" name="city"
+                        placeholder="City" required>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Country</label>
+                    <input type="text" class="form-control" name="country"
+                        placeholder="Country" required>
+                </div>
+            </div>   
+
+            <div class="row">
+                <div class="mb-11 col-md-11"></div>
+                <button type="submit" class="btn btn-primary mb-1 col-md-1">ADD</button>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<%- include('../partials/footer-admin.ejs') %>

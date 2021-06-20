@@ -1,0 +1,126 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+
+<section class="add-info-box">
+    <h1> Edit Aircraft</h1>
+    <form class="add-info-subbox" action='/admin/aircraft/<%= aircraft._id %>/edit?_method=PUT' method="POST">
+        <div class="container">
+            <div class="row">
+                <div class="mb-4 col-md-4">
+                    <label class="form-label">Aircraft model</label>
+                    <input type="text" class="form-control" name="aircraft[aircraftModel]"
+                        placeholder="<%= aircraft.aircraftModel %>"
+                        value="<%= aircraft.aircraftModel %>" required>
+                </div>
+                <div class="mb-6 col-md-6"></div>                
+        
+                <label class="form-label">Seat Type</label>
+                <div class="row mb-12 col-md-12" style="margin-bottom:10px;">
+                    <div class="input-group">
+                        <% if(aircraft.economy.ecoCheck === true) { %>
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="aircraft[economy.ecoCheck]" id="checkEco" checked 
+                                onclick="checkTypeSeat()">Economy
+                                <input type="hidden" value="false" name="aircraft[economy.ecoCheck]" id="uncheckEco" disabled>
+                        </span>
+                        <input type="number" class="form-control" name="aircraft[economy.ecoSeatNumber]" id="ecoSeatNumber"
+                            placeholder="<%= aircraft.economy.ecoSeatNumber %> seats"
+                            value="<%= aircraft.economy.ecoSeatNumber %>" min="0" required>
+                        <input type="text" class="form-control" name="aircraft[economy.ecoSeatLayout]" id="ecoSeatLayout"
+                            placeholder="Layout <%= aircraft.economy.ecoSeatLayout %>"
+                            value="<%= aircraft.economy.ecoSeatLayout %>" required>
+                        <input type="number" class="form-control" name="aircraft[economy.ecoSeatPitch]" id="ecoSeatPitch" 
+                            placeholder="pitch <%= aircraft.economy.ecoSeatPitch %> inch"
+                            value="<%= aircraft.economy.ecoSeatPitch %>" min="0" required>
+                        <% } else { %>
+                        <span class="input-group-text">
+                            <input type="checkbox"  value="true" name="aircraft[economy.ecoCheck]" id="checkEco">Economy
+                        </span>
+                        <input type="number" class="form-control" name="aircraft[economy.ecoSeatNumber]" id="ecoSeatNumber"
+                            placeholder="Number of seat" min="0" required>
+                        <input type="text" class="form-control" name="aircraft[economy.ecoSeatLayout]" id="ecoSeatLayout"
+                            placeholder="Seat layout" required>
+                        <input type="number" class="form-control" name="aircraft[economy.ecoSeatPitch]" id="ecoSeatPitch" 
+                            placeholder="Seat pitch" min="0" required>
+                        <% } %>
+
+                    </div> 
+                </div>
+
+                <div class="row mb-12 col-md-12" style="margin-bottom:10px;">
+                    <div class="input-group">
+                        <% if (aircraft.business.busCheck === true) { %>
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="aircraft[business.busCheck]" id="checkBus" checked>Business
+                            <input type="hidden" value="false" name="aircraft[business.busCheck]" id="uncheckBus" disabled>
+                            
+                        </span>
+                        <input type="number" class="form-control" name="aircraft[business.busSeatNumber]" id="busSeatNumber"
+                            placeholder="<%= aircraft.business.busSeatNumber %> seats" 
+                            value="<%= aircraft.business.busSeatNumber %>" min="0" required>
+                        <input type="text" class="form-control" name="aircraft[business.busSeatLayout]" id="busSeatLayout"
+                            placeholder="Layout <%= aircraft.business.busSeatLayout %>"
+                            value="<%= aircraft.business.busSeatLayout %>" required>
+                        <input type="number" class="form-control" name="aircraft[business.busSeatPitch]" id="busSeatPitch"
+                            placeholder="pitch <%= aircraft.business.busSeatPitch %> inch"
+                            value="<%= aircraft.business.busSeatPitch %>" required> 
+                        <% } else { %>
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="aircraft[business.busCheck]" id="checkBus">Business
+                        </span>
+                        <input type="number" class="form-control" name="aircraft[business.busSeatNumber]" id="busSeatNumber"
+                            placeholder="Number of seat" min="0" required>
+                        <input type="text" class="form-control" name="aircraft[business.busSeatLayout]" id="busSeatLayout"
+                            placeholder="Seat layout" required>
+                        <input type="number" class="form-control" name="aircraft[business.busSeatPitch]" id="busSeatPitch"
+                            placeholder="Seat pitch" required> 
+                        <% } %>
+                    </div> 
+                </div>
+
+                <div class="row mb-12 col-md-12" style="margin-bottom:10px;">
+                    <div class="input-group">
+                        <% if (aircraft.firstclass.firstCheck === true) { %>
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="aircraft[firstclass.firstCheck]" id="checkFirst" checked>First Class
+                            <input type="hidden" value="false" name="aircraft[firstclass.firstCheck]" id="uncheckFirst" disabled>
+                        </span>
+                        <input type="number" class="form-control" name="aircraft[firstclass.firstSeatNumber]" id="firstSeatNumber"
+                            placeholder="<%= aircraft.firstclass.firstSeatNumber %> seats"
+                            value="<%= aircraft.firstclass.firstSeatNumber %>" min="0" required>
+                        <input type="text" class="form-control" name="aircraft[firstclass.firstSeatLayout]"  id="firstSeatLayout"
+                            placeholder="Layout <%= aircraft.firstclass.firstSeatLayout %>"
+                            value="<%= aircraft.firstclass.firstSeatLayout %>" required>
+                        <input type="number" class="form-control" name="aircraft[firstclass.firstSeatPitch]" id="firstSeatPitch"
+                            placeholder="pitch <%= aircraft.firstclass.firstSeatPitch %> inch"
+                            value="<%= aircraft.firstclass.firstSeatPitch %>" min="0" required>   
+                        <% } else { %>
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="aircraft[firstclass.firstCheck]" id="checkFirst">First Class
+                        </span>
+                        <input type="number" class="form-control" name="aircraft[firstclass.firstSeatNumber]" id="firstSeatNumber"
+                            placeholder="Number of seat" min="0" required>
+                        <input type="text" class="form-control" name="aircraft[firstclass.firstSeatLayout]"  id="firstSeatLayout"
+                            placeholder="Seat layout" required>
+                        <input type="number" class="form-control" name="aircraft[firstclass.firstSeatPitch]" id="firstSeatPitch"
+                            placeholder="Seat pitch" min="0" required>   
+                        <% } %>
+          
+                    </div> 
+                </div>
+            </div> 
+
+
+            <br>
+            <div class="row">
+                <div class="mb-11 col-md-11"></div>
+                <button type="submit" class="btn btn-primary mb-1 col-md-1">UPDATE</button>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<%- include('../partials/footer-admin.ejs') %>
+<%- include('../partials/footer-admin.ejs') %>

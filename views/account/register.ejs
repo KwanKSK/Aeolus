@@ -1,0 +1,71 @@
+<%- include('../partials/header-user-login.ejs') %>
+
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+        <div class="card login-card">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src="images/LOGIN.jpg" alt="login" class="login-card-img">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <div class="brand-wrapper">
+                            <img src="images/longLOGO.png" alt="logo" class="logo" >
+                        </div>
+                        <p class="login-card-description">Register Infomation</p>
+                        <form action="/register" method="POST">
+                            <div class="input-group">
+                                <select class="form-control" name="title" id="title" required>
+                                    <option selected disabled>title</option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Ms.">Ms.</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Master">Master</option>
+                                </select>
+                                <label for="firstname" class="sr-only">First Name</label>
+                                <input type="text" name="firstname" id="firstname" class="form-control" placeholder="first name"
+                                    required>
+                            </div>
+                            <div class="for-group">
+                                <label for="lastname" class="sr-only">Lastame</label>
+                                <input type="text" name="lastname" id="lastname" class="form-control" placeholder="lastname"
+                                    required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="tel" class="sr-only">Phone Number</label>
+                                <input type="text" name="tel" id="tel" class="form-control" placeholder="phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="sr-only">E-mail</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="E-mail">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="username" class="sr-only">Username</label>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="username"
+                                    required>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="password" class="sr-only">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="password"
+                                    required>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="confirmPassword" class="sr-only">Confirm Password</label>
+                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="confirm password"
+                                    required>
+                            </div>
+                            <input name="register" id="confirm-btn" class="btn btn-block login-btn mb-4 btn-primary" type="submit" value="Register">
+                        </form>
+                        
+                        <br><p class="login-card-footer-text">Already have an account <a href="/login" class="text-reset">Log in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/footer-user.ejs') %>

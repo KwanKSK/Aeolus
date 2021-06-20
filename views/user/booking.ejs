@@ -1,0 +1,44 @@
+<%- include('../partials/header-user.ejs') %>
+<%- include('../partials/nav-user.ejs') %>
+
+<div class="row">
+    <!-- Side nav -->
+    <div class="mb-1 col-md-1"></div>
+    <div class="mb-3 col-md-3">
+        <div class="mb-12 col-md-12 profile">
+            <h5><strong> <%= currentUser.title %> <%= currentUser.firstname %> <%= currentUser.lastname %> </strong></h5>
+            <h6>  Accumulated mileage: <%= currentUser.mileage %> </h6>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li></i><a href="/user/profile" class="nav-link"><i class="bi bi-person"></i>   My Profile</a></li>
+                <li><a href="/user/booking" class="nav-link active"><i class="bi bi-book"></i>   My Booking</a></li>
+                <hr>
+                <li><strong><a href="/logout" class="nav-link" style="color: black;"><i class="bi bi-power"></i>  Log out</a></strong></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Main detail -->
+
+    <div class="mb-1 col-md-1"></div>
+    <div class="mb-6 col-md-6 user-main">
+        <h3 style="margin-bottom: 20px;"> Active Ticket </h3>
+        <div class="row detail-profile">
+            <h4><strong><i class="bi bi-person"></i> <%= currentUser.title %> <%= currentUser.firstname %> <%= currentUser.lastname %> </strong></h4>
+            <hr style="width: 98%;">
+            <p><strong>username: </strong> <%= currentUser.username %></p>
+        </div>
+        <div class="row detail-profile">
+            <h4><strong><i class="bi bi-phone"></i> Phone </strong></h4>
+            <hr style="width: 98%;">
+            <p> <%= currentUser.tel %> </p>
+        </div>
+        <div class="row detail-profile">
+            <h4><strong><i class="bi bi-envelope"></i> Email Address </strong></h4>
+            <hr>
+            <p> <%= currentUser.email %> </p>
+        </div>
+        
+    </div>
+
+</div>
+<%- include('../partials/footer-user.ejs') %>

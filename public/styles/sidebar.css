@@ -1,0 +1,73 @@
+
+
+body{
+    min-height: 100vh;
+    background: #06172a; }
+
+.sidebar {
+    position: fixed;
+    left: -25px;
+    width: 120px;
+    height: 100%;
+    background: #1758a4;
+    transition: 0.5s;
+    overflow: hidden; }
+.sidebar ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #ffffff; }
+.sidebar ul li {
+    position: relative;
+    width: 100%;
+    list-style: none; }
+.sidebar ul li:hover {
+    background: #608bdb;}
+.sidebar ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #ffffff; }
+.sidebar ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 65px;
+    height: 65px;
+    line-height: 65px;
+    text-align: center; }
+.sidebar ul li a .title {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
+    white-space: nowrap; }
+
+
+.logout{
+    position: fixed;
+    bottom: 38px;
+    left: 0;
+    width: 95px;
+    height: 70px;
+    background: #0d3768;
+    color: #ffffff;
+}
+.logout:hover{
+    background: #5683d6;}
+
+.sm-icon { 
+    height: 24px;
+    width: 24px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px; }
+
+.info-mainpage {
+    margin-left: 180px;
+    margin-right: 45px;}
+   
+

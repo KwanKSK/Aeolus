@@ -1,0 +1,19 @@
+.profile{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+
+    margin-top: 150px;
+    padding: 20px;
+}
+
+.user-main{
+    margin-top: 150px;
+}
+
+.detail-profile{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+
+    margin-bottom: 50px;
+    padding: 20px;
+}

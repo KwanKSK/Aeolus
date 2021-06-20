@@ -1,0 +1,77 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+
+<section class="add-info-box">
+    <h1>Add Aircraft</h1>
+    <form class="add-info-subbox" action='/admin/aircraft/add-new' method="POST">
+        <div class="container">
+            <div class="row">
+                <div class="mb-4 col-md-4">
+                    <label class="form-label">Aircraft model</label>
+                    <input type="text" class="form-control" name="aircraftModel"
+                        placeholder="Aircraft model" required>
+                </div>
+                <div class="mb-6 col-md-6"></div>                
+        
+                <label class="form-label">Seat Type</label>
+                <div class="row mb-12 col-md-12" style="margin-bottom:10px;">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="ecoCheck" id="checkEco">Economy
+                        </span>
+
+                        <input type="number" class="form-control" name="ecoSeatNumber" id="ecoSeatNumber"
+                            placeholder="Number of seat" min="0" required>
+                        <input type="text" class="form-control" name="ecoSeatLayout" id="ecoSeatLayout"
+                            placeholder="Seat layout" required>
+                        <input type="number" class="form-control" name="ecoSeatPitch" id="ecoSeatPitch" 
+                            placeholder="Seat pitch" min="0" required>
+                    </div> 
+                </div>
+
+                <div class="row mb-12 col-md-12" style="margin-bottom:10px;">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="busCheck" id="checkBus">Business
+                        </span>
+
+                        <input type="number" class="form-control" name="busSeatNumber" id="busSeatNumber"
+                            placeholder="Number of seat" min="0" required>
+                        <input type="text" class="form-control" name="busSeatLayout" id="busSeatLayout"
+                            placeholder="Seat layout" required>
+                        <input type="number" class="form-control" name="busSeatPitch" id="busSeatPitch"
+                            placeholder="Seat pitch" min="0" required>   
+                    </div> 
+                </div>
+
+                <div class="row mb-12 col-md-12" style="margin-bottom:10px;">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <input type="checkbox" value="true" name="firstCheck" id="checkFirst">First Class
+                        </span>
+
+                        <input type="number" class="form-control" name="firstSeatNumber" id="firstSeatNumber"
+                            placeholder="Number of seat" min="0" required>
+                        <input type="text" class="form-control" name="firstSeatLayout"  id="firstSeatLayout"
+                            placeholder="Seat layout" required>
+                        <input type="number" class="form-control" name="firstSeatPitch" id="firstSeatPitch"
+                            placeholder="Seat pitch" min="0" required>
+                    </div> 
+                </div>
+            </div> 
+
+
+            <br>
+            <div class="row">
+                <div class="mb-10 col-md-10"></div>
+                <button type="submit" class="btn btn-primary mb-1 col-md-1">ADD</button>       
+            </div>
+
+        </div>
+    </form>
+        
+</section>
+
+<%- include('../partials/footer-admin.ejs') %>
+<%- include('../partials/footer-admin.ejs') %>

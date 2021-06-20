@@ -1,0 +1,33 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<section class="add-info-box">
+    <h1> Add Airline</h1>
+    <form class="add-info-subbox" action='/admin/airline/add-new' method="POST" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row">
+                <div class="mb-8 col-md-8">
+                    <label class="form-label">Airline Name</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="airline[name]"
+                            placeholder="Full name" required>
+                        <input type="text" class="form-control" name="airline[IATA]" 
+                            placeholder="IATA" required>   
+                    </div>                    
+                </div>
+                <div class="mb-4 col-md-4">
+                    <label class="form-label">Airline Logo</label>
+                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                </div>
+            </div>   
+
+            <div class="row">
+                <div class="mb-11 col-md-11"></div>
+                <button type="submit" class="btn btn-primary mb-1 col-md-1">ADD</button>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<%- include('../partials/footer-admin.ejs') %>

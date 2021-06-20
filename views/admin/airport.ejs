@@ -1,0 +1,50 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<!-- heading -->
+<div class="detail-nav fix-nav fixed-top">
+    <a class="active" href="/admin/airport"><img src="/images/miniLOGO.png" class="brand-icon"><b> AIRPORT </b></a>
+    <a href="/admin/airport/add"><i class="bi bi-plus-circle"></i> Add </a>
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+</div>
+
+<!-- show detail -->
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-6 box-info">
+  
+  <% airports.forEach((airport, index)=> { %>
+  <div class="col" style="margin-bottom: 10px">
+      
+    <div class="card text-center h-100">
+      <div class="card-body">
+        <h1 class="card-title"> <%= airport.IATA %></h1>
+        <p class="card-text"> <%= airport.name %> <br>
+            <b><%= airport.city %>, <%= airport.country %></b>
+        </p>
+      </div>
+  
+      <div class="card-body">
+        <table>
+          <tr>
+            <form action='/admin/airport/<%= airport._id %>/edit' method="GET">
+              <button class="btn btn-warning btn-card-margin">Edit</button>
+            </form>
+          
+            <form action='/admin/airport/<%= airport._id %>/del?_method=delete' method="POST">
+              <button class="btn btn-danger btn-card-margin">Delete</button>
+            </form>
+          </tr>
+        </table>
+      </div>
+        
+    </div>
+  </div>
+  <% }) %>
+  
+</div>
+    
+<%- include('../partials/footer-admin.ejs') %>
