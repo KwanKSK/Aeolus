@@ -18,7 +18,7 @@
                     <label for="airline" class="form-label">Airline</label>
                     <div class="input-group">
                         <!-- Airline -->
-                        <select class="form-select" list="airlines" name="airline" id="airline" required>
+                        <select class="form-select" list="airport" name="airline" id="airline" required>
                             <option value="" disabled selected>Airline Name</option>
                             <% airlines.forEach((airline)=> { %>
                                 <option value="<%= airline._id %>">
@@ -27,10 +27,10 @@
                                 <% }) %>
                         </select>
                         <!-- Aircraft -->
-                        <select class="form-select" list="aircraft" name="aircraft" id="aircraft" required>
+                        <select class="form-select" list="airport" name="aircraft" id="aircraft" required>
                             <option value="" disabled selected>Aircraft Model</option>
                             <% aircrafts.forEach((aircraft)=> { %>
-                                <option value="<%= aircraft._id %>" id="checkAircraft" onclick="checkSeatAircraft()">
+                                <option value="<%= aircraft._id %>" id="checkAircraft" onclick="showSeatClass()">
                                     <%= aircraft.aircraftModel %>
                                 </option>
                                 <% }) %>
@@ -70,10 +70,10 @@
                     <label class="form-label">Mileage</label>
                     <input type="number" class="form-control" name="mileage" min="1" required>
                 </div>
-                <!-- Depature, Arrival -->
+                <!-- Departure, Arrival -->
                 <div class="mb-3 col-md-3">
-                    <label class="form-label">Depature</label>
-                    <input type="datetime-local" class="form-control" name="depature" id="departureDate" 
+                    <label class="form-label">Departure</label>
+                    <input type="datetime-local" class="form-control" name="departure" id="departureDate" 
                         min="" onchange="checkDate()" required>
                 </div>
                 <div class="mb-3 col-md-3">
@@ -93,15 +93,15 @@
                         <span class="input-group-text">Adult</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="ecoPriceAdult" placeholder="Price"
-                            min="1" required>
+                            min="1">
                         <span class="input-group-text">Child</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="ecoPriceChild" placeholder="Price"
-                            min="1" required>
+                            min="1">
                         <span class="input-group-text">Infant</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="ecoPriceInfant" placeholder="Price"
-                            min="1" required>
+                            min="0">
                     </div>
                 </div>
                 <!-- Baggage, Cabin Baggage, Facility -->
@@ -110,13 +110,13 @@
                     <div class="mb-5 col-md-5">
                         <label for="Baggage" class="form-label">Baggage</label>
                         <input type="number" class="form-control" name="ecoBaggage" placeholder="Weight (kg)"
-                            min="0" required>
+                            min="0">
                     </div>
                     <!-- Cabin Baggage -->
                     <div class="mb-5 col-md-5">
                         <label for="CabinBaggage" class="form-label">Cabin baggage</label>
                         <input type="number" class="form-control" name="ecoCabinBaggage" placeholder="Weight (kg)"
-                            min="0" required>
+                            min="0">
                     </div>
                     <!-- Facility -->
                     <div class="mb-2 col-md-2">
@@ -151,15 +151,15 @@
                         <span class="input-group-text">Adult</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="busPriceAdult" placeholder="Price"
-                            min="1" required>
+                            min="1">
                         <span class="input-group-text">Child</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="busPriceChild" placeholder="Price"
-                            min="1" required>
+                            min="1">
                         <span class="input-group-text">Infant</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="busPriceInfant" placeholder="Price"
-                            min="1" required>
+                            min="0">
                     </div>
                 </div>
                 <!-- Baggage, Cabin Baggage, Facility -->
@@ -168,13 +168,13 @@
                     <div class="mb-5 col-md-5">
                         <label for="Baggage" class="form-label">Baggage</label>
                         <input type="number" class="form-control" name="busBaggage" placeholder="Weight (kg)"
-                            min="0" required>
+                            min="0">
                     </div>
                     <!-- Cabin Baggage -->
                     <div class="mb-5 col-md-5">
                         <label for="CabinBaggage" class="form-label">Cabin baggage</label>
                         <input type="number" class="form-control" name="busCabinBaggage" placeholder="Weight (kg)"
-                            min="0" required>
+                            min="0">
                     </div>
                     <!-- Facility -->
                     <div class="mb-2 col-md-2">
@@ -209,15 +209,15 @@
                         <span class="input-group-text">Adult</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="firstPriceAdult" placeholder="Price"
-                            min="1" required>
+                            min="1">
                         <span class="input-group-text">Child</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="firstPriceChild" placeholder="Price"
-                            min="1" required>
+                            min="1">
                         <span class="input-group-text">Infant</span>
                         <span class="input-group-text">฿</span>
                         <input type="number" class="form-control" name="firstPriceInfant" placeholder="Price"
-                            min="1" required>
+                            min="0">
                     </div>
                 </div>
                 <!-- Baggage, Cabin Baggage, Facility -->
@@ -226,13 +226,13 @@
                     <div class="mb-5 col-md-5">
                         <label for="Baggage" class="form-label">Baggage</label>
                         <input type="number" class="form-control" name="firstBaggage" placeholder="Weight (kg)"
-                            min="0" required>
+                            min="0">
                     </div>
                     <!-- Cabin Baggage -->
                     <div class="mb-5 col-md-5">
                         <label for="CabinBaggage" class="form-label">Cabin baggage</label>
                         <input type="number" class="form-control" name="firstCabinBaggage" placeholder="Weight (kg)"
-                            min="0" required>
+                            min="0">
                     </div>
                     <!-- Facility -->
                     <div class="mb-2 col-md-2">

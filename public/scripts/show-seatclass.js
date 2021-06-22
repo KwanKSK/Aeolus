@@ -1,3 +1,6 @@
 function showSeatClass(){
-    var aircraft = document.getElementById(checkAircraft);
+    var idAircraft = document.getElementById(checkAircraft);
+    
+    Flight.findOne({ _id: 'idAircraft'});
+    
 }

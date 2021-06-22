@@ -12,5 +12,172 @@
     </div>
 </div>
 
-<%- include('../partials/footer-admin.ejs') %>
+<div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 g-6 box-info">
+ 
+  <% flights.forEach((flight, index)=> { %>
+  <div class="col" style="margin-bottom: 5px">
+        
+    <div class="card h-100">
+      <div class="card-body">
+        <h3 class="card-title "><img src="<%= flight.airline.logo %>" class="logo-flight"><strong> <%= flight.flightNumber %> </strong>  <%= flight.aircraft.aircraftModel %> </h3>
+        <p class="card-text">
+          <!-- Flight info -->
+          <div class="row">
+            <div class="mb-1 col-md-1"></div>
+            <div class="mb-4 col-md-4">
+              <strong><%= flight.origin.IATA %> (<%= flight.origin.city%>, <%= flight.origin.country %>) </strong> <br>
+              <%= flight.departure %>
+            </div>
+            <div class="mb-1 col-md-1"><i class="bi bi-arrow-right"></i></div>
+            <div class="mb-4 col-md-4">
+              <strong><%= flight.destination.IATA %> (<%= flight.destination.city %>, <%= flight.destination.country %>) </strong><br>
+              <%= flight.arrival %>
+            </div>
+            <div class="mb-1 col-md-1"><strong>Mileage</strong> <%= flight.mileage %></div>
+          </div>
+
+          <!-- class info -->
+          <div class="row">
+            <% if(flight.aircraft.economy.ecoCheck === true) { %>
+            
+              <div class="mb-1 col-md-1"></div>
+              <div class="mb-1 col-md-1"><h6><strong>Economy</strong></h6></div>
+              <div class="mb-4 col-md-4">
+                <!-- Price -->
+                <div class="row">
+                  <div class="mb-2 col-md-12 col-lg-2"><strong>Price:</strong></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Adult ฿<%= flight.classInfo.economy.ecoPriceAdult %></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Child ฿<%= flight.classInfo.economy.ecoPriceChild %></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Infant ฿<%= flight.classInfo.economy.ecoPriceInfant %></div>
+                </div>
+              </div>
+              <!-- Baggage, Cabin Baggage -->
+              <div class="mb-3 col-md-3">
+                <div class="row">
+                  <div class="mb-6 col-md-6"><strong>Baggage:</strong> <%= flight.classInfo.economy.ecoBaggage %> kg</div>
+                  <div class="mb-6 col-md-6"><strong>Cabin baggage:</strong> <%= flight.classInfo.economy.ecoCabinBaggage %> kg</div>
+                </div>            
+              </div>
+              <!-- Facility -->
+              <div class="mb-3 col-md-3">
+                <strong>Facility:</strong>
+                <% if(flight.classInfo.economy.ecoMeal === true){ %>
+                  Meal
+                <% } %>
+                <% if(flight.classInfo.economy.ecoEntertain === true) { %>
+                  Entertain
+                <% } %>
+                <% if(flight.classInfo.economy.ecoWifi === true) { %>
+                  Wifi
+                <% } %>
+                <% if(flight.classInfo.economy.ecoUsb === true) { %>
+                  USB
+                <% } %>
+              </div>
+            
+            <% } %>
+
+            <% if(flight.aircraft.business.busCheck === true) { %>
+              <div class="mb-1 col-md-1"></div>
+              <div class="mb-1 col-md-1"><h6><strong>Business</strong></h6></div>
+              <div class="mb-4 col-md-4">
+                <!-- Price -->
+                <div class="row">
+                  <div class="mb-2 col-md-12 col-lg-2"><strong>Price:</strong></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Adult ฿<%= flight.classInfo.business.busPriceAdult %></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Child ฿<%= flight.classInfo.business.busPriceChild %></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Infant ฿<%= flight.classInfo.business.busPriceInfant %></div>
+                </div>
+              </div>
+              <!-- Baggage, Cabin Baggage -->
+              <div class="mb-3 col-md-3">
+                <div class="row">
+                  <div class="mb-6 col-md-6"><strong>Baggage:</strong> <%= flight.classInfo.business.busBaggage %> kg</div>
+                  <div class="mb-6 col-md-6"><strong>Cabin baggage:</strong> <%= flight.classInfo.business.busCabinBaggage %> kg</div>
+                </div>            
+              </div>
+              <!-- Facility -->
+              <div class="mb-3 col-md-3">
+                <strong>Facility:</strong>
+                <% if(flight.classInfo.business.busMeal === true){ %>
+                  Meal
+                <% } %>
+                <% if(flight.classInfo.business.busEntertain === true) { %>
+                  Entertain
+                <% } %>
+                <% if(flight.classInfo.business.busWifi === true) { %>
+                  Wifi
+                <% } %>
+                <% if(flight.classInfo.business.busUsb === true) { %>
+                  USB
+                <% } %>
+              </div>
+           
+            <% } %>
+
+            <% if(flight.aircraft.firstclass.firstCheck === true) { %>
+              <div class="mb-1 col-md-1"></div>
+              <div class="mb-1 col-md-1"><h6><strong>First Class</strong></h6></div>
+              <div class="mb-4 col-md-4">
+                <!-- Price -->
+                <div class="row">
+                  <div class="mb-2 col-md-12 col-lg-2"><strong>Price:</strong></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Adult ฿<%= flight.classInfo.firstclass.firstPriceAdult %></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Child ฿<%= flight.classInfo.firstclass.firstPriceChild %></div>
+                  <div class="mb-3 col-md-12 col-lg-3">Infant ฿<%= flight.classInfo.firstclass.firstPriceInfant %></div>
+                </div>
+              </div>
+              <!-- Baggage, Cabin Baggage -->
+              <div class="mb-3 col-md-3">
+                <div class="row">
+                  <div class="mb-6 col-md-6"><strong>Baggage:</strong> <%= flight.classInfo.firstclass.firstBaggage %> kg</div>
+                  <div class="mb-6 col-md-6"><strong>Cabin baggage:</strong> <%= flight.classInfo.firstclass.firstCabinBaggage %> kg</div>
+                </div>            
+              </div>
+              <!-- Facility -->
+              <div class="mb-3 col-md-3">
+                <strong>Facility:</strong>
+                <% if(flight.classInfo.firstclass.firstMeal === true){ %>
+                  Meal
+                <% } %>
+                <% if(flight.classInfo.firstclass.firstEntertain === true) { %>
+                  Entertain
+                <% } %>
+                <% if(flight.classInfo.firstclass.firstWifi === true) { %>
+                  Wifi
+                <% } %>
+                <% if(flight.classInfo.firstclass.firstUsb === true) { %>
+                  USB
+                <% } %>
+              </div>
+            
+            <% } %>
+
+          </div>
+
+
+        </p>
+      </div>
+    
+      <div class="card-body text-end" style="margin-top: -30px;">
+          <table>
+            <tr>
+              <form action='/admin/flight/<%= flight._id %>/edit' method="GET">
+                <button class="btn btn-warning btn-card-margin">Edit</button>
+              </form>
+            
+              <form action='/admin/flight/<%= flight._id %>/del?_method=delete' method="POST">
+                <button class="btn btn-danger btn-card-margin">Delete</button>
+              </form>
+            </tr>
+          </table>
+      </div>
+          
+    </div>
+  
+  </div>
+  <% }) %>
+    
+</div>
+
 <%- include('../partials/footer-admin.ejs') %>

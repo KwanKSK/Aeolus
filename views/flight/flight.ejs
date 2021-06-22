@@ -29,4 +29,97 @@
     </a>
 </div>
 
+<!-- Search Flight -->
+<div class="container-xxl">
+
+      <div class="searchbox col-md-10 col-lg-12 my-5 p-5">
+          <div class="row" style="margin-bottom: 30px;">
+            <div class="col">
+              <button class="flight-tab pe-4 py-2">One Way</button>
+              <button class="flight-tab pe-4 py-2 notactive">Round Trip</button>
+              <!--button class="flight-tab pe-4 py-2">Multi Trip</button>-->
+            </div>
+          </div>
+
+          <form action='/flight/search' method="POST">
+              <div class="row">
+                  <div class="input mb-2 col-lg-4">
+                    <label for="airportfrom" class="form-label fw-bold ">From</label>
+                    <select class="form-select" list="airports" name="origin" id="origin"
+                      placeholder="Origin" onchange="checkLocation()">
+                      <% airports.forEach((airport)=> { %>
+                        <option value="<%= airport._id %>">
+                          <%= airport.IATA %> (<%= airport.city %>, <%= airport.country %>)
+                        </option>
+                      <% }) %>
+                    </select>
+                  </div>
+
+                  <div class="input mb-2 col-lg-4">
+                    <label for="airportto" class="form-label fw-bold">To</label>
+                    <select class="form-select" list="airports" name="destination" id="destination"
+                      placeholder="Destination" onchange="checkLocation()">
+                      <% airports.forEach((airport)=> { %>
+                        <option value="<%= airport._id %>">
+                          <%= airport.IATA %> (<%= airport.city %>, <%= airport.country %>)
+                        </option>
+                        <% }) %>
+                    </select>
+                  </div>
+
+                  <div class="mb-2 col-lg-4">
+                    <label for="seatnum" class="form-label fw-bold">No. of passenger</label>
+                    <div class="input-group">
+                      <span class="input-group-text">Adult</span>
+                      <input type="number" class="form-control" name="Adult" id="adult" value="1" min="1" max="10"
+                        onchange="checkPassenger()" required>
+                      
+                      <span class="input-group-text">Child</span>
+                      <input type="number" class="form-control" name="Child" min="0" max="10">
+                      
+                      <span class="input-group-text">Infant</span>
+                      <input type="number" class="form-control" name="Infant" id="infant" min="0" max="10"
+                        onchange="checkPassenger()">
+                    </div>
+                  </div>
+
+              </div>
+            
+
+              <div class="row">
+                  <div class="mb-2 col-lg-4">
+                      <label for="floatingLastname" class="form-label fw-bold">Depart Date</label>
+                      <input type="date" class="form-control p-3" name="departureDate" id="departureDateOnly" 
+                        min="" required>
+                      
+                  </div>
+
+                  <div class="mb-2 col-lg-4">
+                      <label for="returnDate" class="form-label fw-bold">Return Date</label>
+                      <input type="date" class="form-control p-3 active-toggle" name="returnDate" id="arrivalDateOnly" 
+                        min="" Disabled>      
+                  </div>
+
+                  <div class="mb-2 col-lg-4">
+                    <label for="seatClass" class="form-label fw-bold">Seat Class</label>
+                    <select class="form-select" list="seatclass" name="seatclass" id="seatclass" required>
+                      <option value="economy">Economy</option>
+                      <option value="business">Business</option>
+                      <option value="firstclass">First Class</option>
+                    </select>    
+                </div>
+              </div>
+
+              
+              <div class="row">
+                <div class="mb-2 col-lg-12 text-end">
+                  <button type="submit" class="btn btn-primary searchbutton px-5 my-5">Search</button>
+                </div>
+              </div>
+          </form>
+
+      </div>
+
+</div>
+
 <%- include('../partials/footer-user.ejs') %>

@@ -1,0 +1,368 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<section class="add-info-box">
+    <h1> Edit Flight</h1>
+    <form class="add-info-subbox" action='/admin/flight/<%= flight._id %>/edit?_method=PUT' method="POST">
+        <div class="container">
+            <!-- Flight number, Airline, Aircraft-->
+            <div class="row">
+                <!-- Flight number -->
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Flight Number</label>
+                    <input type="text" class="form-control" name="fligth[flightNumber]"
+                        placeholder="<%= flight.flightNumber %>" value="<%= flight.flightNumber %>" required>
+                </div>
+                <!-- Airline, Aircraft -->
+                <div class="mb-9 col-md-9">
+                    <label for="airline" class="form-label">Airline</label>
+                    <div class="input-group">
+                        <!-- Airline -->
+                        <select class="form-select" list="airlines" name="flight[airline]" id="airline"
+                            placeholder="<%= flight.airline.name %>" value="<%= flight.airline.name %>" required>
+                            
+                            <option value="<%= flight.airline._id %>" disabled selected><%= flight.airline.name %></option>
+                            <% airlines.forEach((airline)=> { %>
+                            <option value="<%= airline._id %>">
+                                <%= airline.name %>
+                            </option>
+                            <% }) %>
+                        </select>
+                        <!-- Aircraft -->
+                        <select class="form-select" list="aircraft" name="flight[aircraft]" id="aircraft" 
+                            placeholder="<%= flight.aircraft.aircraftModel %>" value="<%= flight.aircraft.aircraftModel %>"  required>
+                        <option value="<%= flight.aircraft._id %>" disabled selected><%= flight.aircraft.aircraftModel %></option>
+                        <% aircrafts.forEach((aircraft)=> { %>
+                        <option value="<%= aircraft._id %>">
+                            <%= aircraft.aircraftModel %>
+                        </option>
+                        <% }) %>
+                        </select>
+                    </div>                   
+                </div>
+            </div>
+
+            <!-- Location, Mileage, Departure, Arrival -->
+            <div class="row" style="margin-bottom: 30px;">
+                <!-- Location -->
+                <div class="mb-5 col-md-5">
+                    <label for="airline" class="form-label">Location</label>
+                    <div class="input-group">
+                        <span class="input-group-text">From</span>
+                        <select class="form-select" list="airport" name="flight[origin]" id="origin" onchange="checkLocation()"   
+                            placeholder="<%= flight.origin.IATA %> (<%= flight.origin.city %>, <%= flight.origin.country %>)" required>required>
+                            
+                            <option value="<%= flight.origin._id %>" disabled selected><%= flight.origin.IATA %> (<%= flight.origin.city %>, <%= flight.origin.country %>)</option>
+                            <% airports.forEach((airport)=> { %>
+                                <option value="<%= airport._id %>">
+                                    <%= airport.IATA %> (<%= airport.city %>, <%= airport.country %>)
+                                </option>
+                                <% }) %>
+
+                        </select>
+                        <span class="input-group-text">To</span>
+                        <select class="form-select" list="airport" name="flight[destination]" id="destination" onchange="checkLocation()"
+                            placeholder="<%= flight.destination.IATA %> (<%= flight.destination.city %>, <%= flight.destination.country %>)"required>
+                            
+                            <option value="<%= flight.destination._id %>" disabled selected><%= flight.destination.IATA %> (<%= flight.destination.city %>, <%= flight.destination.country %>)</option>
+                            <% airports.forEach((airport)=> { %>
+                                <option value="<%= airport._id %>">
+                                    <%= airport.IATA %> (<%= airport.city %>, <%= airport.country %>)
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>                      
+                </div>
+                <!-- Mileage -->
+                <div class="mb-1 col-md-1">
+                    <label class="form-label">Mileage</label>
+                    <input type="number" class="form-control" name="flight[mileage]" 
+                        value="<%= flight.mileage %>"
+                        placeholder="<%= flight.mileage %>" min="1" required>
+                </div>
+                <!-- Departure, Arrival -->
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Departure</label>
+                    <input type="datetime-local" class="form-control" name="flight[departure]" id="departureDate" 
+                       placeholder="<%= flight.departure %>" value="<%= flight.departure %>"  min="" onchange="checkDate()" required>
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Arrival</label>
+                    <input type="datetime-local" class="form-control" name="flight[arrival]" id="arrivalDate" 
+                        placeholder="<%= flight.arrival %>" value="<%= flight.arrival %>"  min="" onchange="checkDate()" required>
+                </div>
+            </div>
+
+            <!-- Economy Class -->
+            <div class="row" style="margin-top: 15px;">
+                <h6><strong>Economy Class</strong></h6>
+                <!-- Price -->
+                <div class="mb-12 col-md-12">  
+                    <label for="price" class="form-label">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Adult</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.economy.ecoPriceAdult]"
+                            value="<%= flight.classInfo.economy.ecoPriceAdult %>" 
+                            placeholder="<%= flight.classInfo.economy.ecoPriceAdult %>" min="1">
+                        <span class="input-group-text">Child</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.economy.ecoPriceChild]"
+                            value="<%= flight.classInfo.economy.ecoPriceChild %>" 
+                            placeholder="<%= flight.classInfo.economy.ecoPriceChild %>"  min="1">
+                        <span class="input-group-text">Infant</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.economy.ecoPriceInfant]" 
+                            value="<%= flight.classInfo.economy.ecoPriceInfant %>" 
+                            placeholder="<%= flight.classInfo.economy.ecoPriceInfant %>"  min="0">
+                    </div>
+                </div>
+                <!-- Baggage, Cabin Baggage, Facility -->
+                <div class="row" style="margin-top: 10px;">
+                    <!-- Baggage -->
+                    <div class="mb-5 col-md-5">
+                        <label for="Baggage" class="form-label">Baggage</label>
+                        <input type="number" class="form-control" name="flight[classInfo.economy.ecoBaggage]"
+                            value="<%= flight.classInfo.economy.ecoBaggage %>" 
+                            placeholder="<%= flight.classInfo.economy.ecoBaggage %> kg" min="0" required>
+                    </div>
+                    <!-- Cabin Baggage -->
+                    <div class="mb-5 col-md-5">
+                        <label for="CabinBaggage" class="form-label">Cabin baggage</label>
+                        <input type="number" class="form-control" name="flight[classInfo.economy.ecoCabinBaggage]"
+                            value="<%= flight.classInfo.economy.ecoCabinBaggage %>" 
+                            placeholder="<%= flight.classInfo.economy.ecoCabinBaggage %> kg" min="0" required>
+                    </div>
+                    <!-- Facility -->
+                    <div class="mb-2 col-md-2">
+                        <label for="Facility" class="form-label">Facility</label>
+                        <div class="form-check"> <!-- Meal -->
+                            <% if(flight.classInfo.economy.ecoMeal === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoMeal]"
+                                    id="ecoMeal" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.economy.ecoMeal]" id="ecoNoMeal" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoMeal]">
+                            <% } %>
+                            <label class="form-check-label">Meal</label>
+                        </div>
+                        <div class="form-check"> <!-- Entertain -->
+                            <% if(flight.classInfo.economy.ecoEntertain === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoEntertain]"
+                                    id="ecoEntertain" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.economy.ecoEntertain]" id="ecoNoEntertain" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoEntertain]">
+                            <% } %>
+                            <label class="form-check-label">Entertain</label>
+                        </div>
+                        <div class="form-check"> <!-- Wifi -->
+                            <% if(flight.classInfo.economy.ecoWifi === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoWifi]"
+                                    id="ecoWifi" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.economy.ecoWifi]" id="ecoNoWifi" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoWifi]">
+                            <% } %>
+                            <label class="form-check-label">Wifi</label>
+                        </div>
+                        <div class="form-check">
+                            <% if(flight.classInfo.economy.ecoUsb === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoUsb]"
+                                    id="ecoUsb" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.economy.ecoUsb]" id="ecoNoUsb" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.economy.ecoUsb]">
+                            <% } %>
+                            <label class="form-check-label">USB</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Class-->
+            <div class="row" style="margin-top: 15px;">
+                <h6><strong>Business Class</strong></h6>
+                <!-- Price -->
+                <div class="mb-12 col-md-12">  
+                    <label for="price" class="form-label">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Adult</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.business.busPriceAdult]"
+                            value="<%= flight.classInfo.business.busPriceAdult %>" 
+                            placeholder="<%= flight.classInfo.business.busPriceAdult %>" min="1">
+                        <span class="input-group-text">Child</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.business.busPriceChild]"
+                            value="<%= flight.classInfo.business.busPriceChild %>" 
+                            placeholder="<%= flight.classInfo.business.busPriceChild %>"  min="1">
+                        <span class="input-group-text">Infant</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.business.busPriceInfant]" 
+                            value="<%= flight.classInfo.business.busPriceInfant %>" 
+                            placeholder="<%= flight.classInfo.business.busPriceInfant %>"  min="0">
+                    </div>
+                </div>
+                <!-- Baggage, Cabin Baggage, Facility -->
+                <div class="row" style="margin-top: 10px;">
+                    <!-- Baggage -->
+                    <div class="mb-5 col-md-5">
+                        <label for="Baggage" class="form-label">Baggage</label>
+                        <input type="number" class="form-control" name="flight[classInfo.business.busBaggage]"
+                            value="<%= flight.classInfo.business.busBaggage %>" 
+                            placeholder="<%= flight.classInfo.business.busBaggage %> kg" min="0" required>
+                    </div>
+                    <!-- Cabin Baggage -->
+                    <div class="mb-5 col-md-5">
+                        <label for="CabinBaggage" class="form-label">Cabin baggage</label>
+                        <input type="number" class="form-control" name="flight[classInfo.business.busCabinBaggage]"
+                            value="<%= flight.classInfo.business.busCabinBaggage %>" 
+                            placeholder="<%= flight.classInfo.business.busCabinBaggage %> kg" min="0" required>
+                    </div>
+                    <!-- Facility -->
+                    <div class="mb-2 col-md-2">
+                        <label for="Facility" class="form-label">Facility</label>
+                        <div class="form-check"> <!-- Meal -->
+                            <% if(flight.classInfo.business.busMeal === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busMeal]"
+                                    id="busMeal" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.business.busMeal]" id="busNoMeal" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busMeal]">
+                            <% } %>
+                            <label class="form-check-label">Meal</label>
+                        </div>
+                        <div class="form-check"> <!-- Entertain -->
+                            <% if(flight.classInfo.business.busEntertain === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busEntertain]"
+                                    id="busEntertain" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.business.busEntertain]" id="busNoEntertain" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busEntertain]">
+                            <% } %>
+                            <label class="form-check-label">Entertain</label>
+                        </div>
+                        <div class="form-check"> <!-- Wifi -->
+                            <% if(flight.classInfo.business.busWifi === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busWifi]"
+                                    id="busWifi" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.business.busWifi]" id="busNoWifi" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busWifi]">
+                            <% } %>
+                            <label class="form-check-label">Wifi</label>
+                        </div>
+                        <div class="form-check">
+                            <% if(flight.classInfo.business.busUsb === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busUsb]"
+                                    id="busUsb" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.business.busUsb]" id="busNoUsb" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.business.busUsb]">
+                            <% } %>
+                            <label class="form-check-label">USB</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- First Class -->
+            <div class="row" style="margin-top: 15px;">
+                <h6><strong>First Class</strong></h6>
+                <!-- Price -->
+                <div class="mb-12 col-md-12">  
+                    <label for="price" class="form-label">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Adult</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.firstclass.firstPriceAdult]"
+                            value="<%= flight.classInfo.firstclass.firstPriceAdult %>" 
+                            placeholder="<%= flight.classInfo.firstclass.firstPriceAdult %>" min="1">
+                        <span class="input-group-text">Child</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.firstclass.firstPriceChild]"
+                            value="<%= flight.classInfo.firstclass.firstPriceChild %>" 
+                            placeholder="<%= flight.classInfo.firstclass.firstPriceChild %>"  min="1">
+                        <span class="input-group-text">Infant</span>
+                        <span class="input-group-text">฿</span>
+                        <input type="number" class="form-control" name="flight[classInfo.firstclass.firstPriceInfant]" 
+                            value="<%= flight.classInfo.firstclass.firstPriceInfant %>" 
+                            placeholder="<%= flight.classInfo.firstclass.firstPriceInfant %>"  min="0">
+                    </div>
+                </div>
+                <!-- Baggage, Cabin Baggage, Facility -->
+                <div class="row" style="margin-top: 10px;">
+                    <!-- Baggage -->
+                    <div class="mb-5 col-md-5">
+                        <label for="Baggage" class="form-label">Baggage</label>
+                        <input type="number" class="form-control" name="flight[classInfo.firstclass.firstBaggage]"
+                            value="<%= flight.classInfo.firstclass.firstBaggage %>" 
+                            placeholder="<%= flight.classInfo.firstclass.firstBaggage %> kg" min="0">
+                    </div>
+                    <!-- Cabin Baggage -->
+                    <div class="mb-5 col-md-5">
+                        <label for="CabinBaggage" class="form-label">Cabin baggage</label>
+                        <input type="number" class="form-control" name="flight[classInfo.firstclass.firstCabinBaggage]"
+                            value="<%= flight.classInfo.firstclass.firstCabinBaggage %>" 
+                            placeholder="<%= flight.classInfo.firstclass.firstCabinBaggage %> kg" min="0">
+                    </div>
+                    <!-- Facility -->
+                    <div class="mb-2 col-md-2">
+                        <label for="Facility" class="form-label">Facility</label>
+                        <div class="form-check"> <!-- Meal -->
+                            <% if(flight.classInfo.firstclass.firstMeal === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstMeal]"
+                                    id="firstMeal" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.firstclass.firstMeal]" id="firstNoMeal" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstMeal]">
+                            <% } %>
+                            <label class="form-check-label">Meal</label>
+                        </div>
+                        <div class="form-check"> <!-- Entertain -->
+                            <% if(flight.classInfo.firstclass.firstEntertain === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstEntertain]"
+                                    id="firstEntertain" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.firstclass.firstEntertain]" id="firstNoEntertain" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstEntertain]">
+                            <% } %>
+                            <label class="form-check-label">Entertain</label>
+                        </div>
+                        <div class="form-check"> <!-- Wifi -->
+                            <% if(flight.classInfo.firstclass.firstWifi === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstWifi]"
+                                    id="firstWifi" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.firstclass.firstWifi]" id="firstNoWifi" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstWifi]">
+                            <% } %>
+                            <label class="form-check-label">Wifi</label>
+                        </div>
+                        <div class="form-check">
+                            <% if(flight.classInfo.firstclass.firstUsb === true) { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstUsb]"
+                                    id="firstUsb" checked onclick="checkFacility()">
+                                <input type="hidden" value="false" name="flight[classInfo.firstclass.firstUsb]" id="firstNoUsb" disabled>
+                            <% } else { %>
+                                <input class="form-check-input" type="checkbox" value="true" name="flight[classInfo.firstclass.firstUsb]">
+                            <% } %>
+                            <label class="form-check-label">USB</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+          
+            <div class="row" style="margin-top: 10px;">
+                <div class="mb-11 col-md-11"></div>
+                <button type="submit" class="btn btn-primary mb-1 col-md-1">UPDATE</button>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<%- include('../partials/footer-admin.ejs') %>

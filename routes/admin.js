@@ -22,6 +22,7 @@ var express = require('express'),
     Aircraft    = require('../models/aircraft'),
     Airline = require('../models/airline'),
     Airport = require('../models/airport'),
+    User    = require('../models/user'),
     Flight  = require('../models/flight');
 
 router.get('/', isLoggedIn, isAdmin, function(req, res){
@@ -30,7 +31,47 @@ router.get('/', isLoggedIn, isAdmin, function(req, res){
 
 // Flight
 router.get('/flight', isLoggedIn, isAdmin, function(req, res){
-    res.render('admin/flight.ejs');
+    Flight.find().populate('airline aircraft origin destination').exec(function (err, flight) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(flight);
+
+            // Airport
+            Airport.find({}, function (err, airport_result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(airport_result)
+                    
+                    // Airline
+                    Airline.find({}, function (err, airline_result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log(airline_result)
+
+                            // Aircraft
+                            Aircraft.find({}, function (err, aircraft_result) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    console.log(aircraft_result)
+                                    res.render('./admin/flight.ejs', { flights: flight, airports: airport_result, airlines: airline_result, aircrafts: aircraft_result })
+                                }
+                            }).sort({aircraftModel:1});
+
+                        }
+                    }).sort({name:1});
+
+                }
+            }).sort({country:1});
+        }
+    });
 });
 
 router.get('/flight/add', function(req, res){
@@ -189,12 +230,64 @@ router.post('/flight/add-new', function(req, res){
             res.redirect('/admin/flight')
         }
     });
+});
 
+router.get('/flight/:id/edit', function(req, res){
+    Flight.findById(req.params.id).populate('airline aircraft origin destination').exec(function (err, flight_result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // Airport
+            Airport.find({}, function (err, airport_result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    // Airline
+                    Airline.find({}, function (err, airline_result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            // Aircraft
+                            Aircraft.find({}, function (err, aircraft_result) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    res.render('./admin/flight-edit.ejs', { flight: flight_result, airports: airport_result, airlines: airline_result, aircrafts: aircraft_result })
+                                }
+                            }).sort({aircraftModel:1});
+                        }
+                    }).sort({name:1});
 
+                }
+            }).sort({country:1});
+        }
+    });
+});
 
+router.put('/flight/:id/edit', function (req, res) {
+    Flight.findByIdAndUpdate(req.params.id, req.body.flight, function (err, flight_updated) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.redirect('/admin/flight');
+        }
+    });
+});
 
-
-
+router.delete('/flight/:id/del', function (req, res) {
+    Flight.findByIdAndRemove(req.params.id, function(err, flight_deleted) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.redirect('/admin/flight');
+        }
+    });
 });
 
 
@@ -418,7 +511,7 @@ router.get('/aircraft/:id/edit', function (req, res) {
             console.log(err);
         }
         else {
-            res.render('./admin/aircraft-edit', { aircraft: aircraft_result })
+            res.render('./admin/aircraft-edit', { aircraft: aircraft_result });
         }
     });
 });
@@ -446,6 +539,19 @@ router.delete('/aircraft/:id/del', function (req, res) {
             res.redirect('/admin/aircraft');
         }
     });
+});
+
+// User
+router.get('/user', isLoggedIn, isAdmin, function(req, res){   
+    User.find({}, function(err,user_result){
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(user_result);
+            res.render('./admin/user.ejs', {user: user_result});
+        }
+    }).sort({username:1});
 });
 
 function isLoggedIn(req, res, next){

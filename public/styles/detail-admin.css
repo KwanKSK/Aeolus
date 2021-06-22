@@ -70,6 +70,7 @@ body {
     background: rgba(204, 204, 204, 0.26);
     padding: 28px;
     border-radius: 10px;
+    margin-bottom: 30px;
 }
 
 .brand-icon{
@@ -83,3 +84,11 @@ body {
   width: 100px;
   align-self:center;
 }
+
+.logo-flight{
+  height: 45px;
+  width: 45px;
+  margin: 5px;
+}
+
+#more {display: none;}

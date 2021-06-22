@@ -1,0 +1,61 @@
+<%- include('../partials/header-admin.ejs') %>
+<%- include('../partials/nav-admin.ejs') %>
+
+<div class="detail-nav fix-nav fixed-top">
+    <a class="active" href="/admin/user"><img src="/images/miniLOGO.png" class="brand-icon"><b> USER </b></a>
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+</div>
+
+<!-- show detail -->
+<div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 g-6 box-info">
+    <h4 class="text-white">Logged As Admin</h4>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"> <%= currentUser.username %> </h4>
+            <p class="card-text">
+                <div class="row">
+                    <div class="mb-3 col-md-4 col-lg-3"> <b>Name:</b> <%= currentUser.title %> <%= currentUser.firstname %> <%= currentUser.lastname %> </div>
+                    <div class="mb-2 col-md-4 col-lg-2"> <b>Email:</b> <%= currentUser.email %> </div>
+                    <div class="mb-2 col-md-4 col-lg-2"> <b>Phone:</b> <%= currentUser.tel %> </div>
+                </div>
+            </p>
+        </div>
+    </div>
+
+    <h4 class="text-white" style="margin-top: 20px;">Admin</h4>  
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"> <%= currentUser.username %> </h4>
+            <p class="card-text">
+                <div class="row">
+                    <div class="mb-3 col-md-4 col-lg-3"> <b>Name:</b> <%= currentUser.title %> <%= currentUser.firstname %> <%= currentUser.lastname %> </div>
+                    <div class="mb-2 col-md-4 col-lg-2"> <b>Email:</b> <%= currentUser.email %> </div>
+                    <div class="mb-2 col-md-4 col-lg-2"> <b>Phone:</b> <%= currentUser.tel %> </div>
+                </div>
+            </p>
+        </div>
+    </div>
+
+    <h4 class="text-white" style="margin-top: 20px;">Customer</h4>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"> <%= currentUser.username %> </h4>
+            <p class="card-text">
+                <div class="row">
+                    <div class="mb-3 col-md-4 col-lg-3"> <b>Name:</b> <%= currentUser.title %> <%= currentUser.firstname %> <%= currentUser.lastname %> </div>
+                    <div class="mb-2 col-md-4 col-lg-2"> <b>Email:</b> <%= currentUser.email %> </div>
+                    <div class="mb-2 col-md-4 col-lg-2"> <b>Phone:</b> <%= currentUser.tel %> </div>
+                </div>
+            </p>
+        </div>
+    </div>
+   
+</div>
+
+<%- include('../partials/footer-admin.ejs') %>
+<%- include('../partials/footer-admin.ejs') %>

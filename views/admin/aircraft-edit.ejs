@@ -20,9 +20,9 @@
                     <div class="input-group">
                         <% if(aircraft.economy.ecoCheck === true) { %>
                         <span class="input-group-text">
-                            <input type="checkbox" value="true" name="aircraft[economy.ecoCheck]" id="checkEco" checked 
+                            <input type="checkbox" value="true" name="aircraft[economy.ecoCheck]" id="checkEco" checked
                                 onclick="checkTypeSeat()">Economy
-                                <input type="hidden" value="false" name="aircraft[economy.ecoCheck]" id="uncheckEco" disabled>
+                            <input type="hidden" value="false" name="aircraft[economy.ecoCheck]" id="uncheckEco" disabled>
                         </span>
                         <input type="number" class="form-control" name="aircraft[economy.ecoSeatNumber]" id="ecoSeatNumber"
                             placeholder="<%= aircraft.economy.ecoSeatNumber %> seats"
@@ -52,7 +52,8 @@
                     <div class="input-group">
                         <% if (aircraft.business.busCheck === true) { %>
                         <span class="input-group-text">
-                            <input type="checkbox" value="true" name="aircraft[business.busCheck]" id="checkBus" checked>Business
+                            <input type="checkbox" value="true" name="aircraft[business.busCheck]" id="checkBus" checked 
+                                onclick="checkTypeSeat()">Business
                             <input type="hidden" value="false" name="aircraft[business.busCheck]" id="uncheckBus" disabled>
                             
                         </span>
@@ -83,7 +84,8 @@
                     <div class="input-group">
                         <% if (aircraft.firstclass.firstCheck === true) { %>
                         <span class="input-group-text">
-                            <input type="checkbox" value="true" name="aircraft[firstclass.firstCheck]" id="checkFirst" checked>First Class
+                            <input type="checkbox" value="true" name="aircraft[firstclass.firstCheck]" id="checkFirst" checked
+                                onclick="checkTypeSeat()">First Class
                             <input type="hidden" value="false" name="aircraft[firstclass.firstCheck]" id="uncheckFirst" disabled>
                         </span>
                         <input type="number" class="form-control" name="aircraft[firstclass.firstSeatNumber]" id="firstSeatNumber"
