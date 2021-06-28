@@ -1,8 +1,10 @@
 
 
 body{
+    font-family: "Karla", sans-serif;
     min-height: 100vh;
-    background: #06172a; }
+    background: #06172a; 
+}
 
 .sidebar {
     position: fixed;
@@ -11,32 +13,38 @@ body{
     height: 100%;
     background: #1758a4;
     transition: 0.5s;
-    overflow: hidden; }
+    overflow: hidden; 
+}
 .sidebar ul {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    color: #ffffff; }
+    color: #ffffff; 
+}
 .sidebar ul li {
     position: relative;
     width: 100%;
-    list-style: none; }
+    list-style: none; 
+}
 .sidebar ul li:hover {
-    background: #608bdb;}
+    background: #608bdb;
+}
 .sidebar ul li a {
     position: relative;
     display: block;
     width: 100%;
     text-decoration: none;
-    color: #ffffff; }
+    color: #ffffff; 
+}
 .sidebar ul li a .icon {
     position: relative;
     display: block;
     min-width: 65px;
     height: 65px;
     line-height: 65px;
-    text-align: center; }
+    text-align: center; 
+}
 .sidebar ul li a .title {
     position: relative;
     display: block;
@@ -44,8 +52,8 @@ body{
     height: 65px;
     line-height: 65px;
     text-align: center;
-    white-space: nowrap; }
-
+    white-space: nowrap; 
+}
 
 .logout{
     position: fixed;
@@ -57,17 +65,20 @@ body{
     color: #ffffff;
 }
 .logout:hover{
-    background: #5683d6;}
+    background: #5683d6;
+}
 
 .sm-icon { 
     height: 24px;
     width: 24px;
     margin-left: 5px;
     margin-right: 5px;
-    margin-top: 10px; }
+    margin-top: 10px; 
+}
 
 .info-mainpage {
     margin-left: 180px;
-    margin-right: 45px;}
+    margin-right: 45px;
+}
    
 

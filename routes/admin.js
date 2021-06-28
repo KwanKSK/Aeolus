@@ -31,7 +31,7 @@ router.get('/', isLoggedIn, isAdmin, function(req, res){
 
 // Flight
 router.get('/flight', isLoggedIn, isAdmin, function(req, res){
-    Flight.find().populate('airline aircraft origin destination').exec(function (err, flight) {
+    Flight.find().sort({flightNumber:1}).populate('airline aircraft origin destination').exec(function (err, flight) {
         if (err) {
             console.log(err);
         }
@@ -127,8 +127,12 @@ router.post('/flight/add-new', function(req, res){
         destination = req.body.destination,
 
         mileage = req.body.mileage,
+        transit = req.body.transit;
+
         departure   = req.body.departure,
         arrival     = req.body.arrival,
+        departureTime   = req.body.departureTime,
+        arrivalTime     = req.body.arrivalTime,
 
         ecoBaggage  = req.body.ecoBaggage,
         ecoCabinBaggage = req.body.ecoCabinBaggage,
@@ -170,8 +174,12 @@ router.post('/flight/add-new', function(req, res){
         destination:    destination,
 
         mileage:    mileage,
+        transit:    transit,
+
         departure:  departure,
+        departureTime:  departureTime,
         arrival:    arrival,
+        arrivalTime:    arrivalTime,
 
         classInfo:{
             economy:{
@@ -553,6 +561,7 @@ router.get('/user', isLoggedIn, isAdmin, function(req, res){
         }
     }).sort({username:1});
 });
+
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

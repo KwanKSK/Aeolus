@@ -1,0 +1,319 @@
+<%- include('../partials/header-user.ejs') %>
+<%- include('../partials/nav-user.ejs') %>
+<div class="content-info">
+<form action='/flight/payment/<%= bookedinfo._id %>/' method="POST">
+    <div class="row justify-content-center">
+    <div class="row">
+    
+        <div class="m-3 col-md-7">
+            <div><h5>Contact Details</h5></div>
+            <div class="box">
+                <p>Contact Details</p>
+                <hr>
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="input-group">
+                            <select class="form-control" name="contactTitle" required>
+                                <option selected disabled>Title</option>
+                                <option value="Mr.">Mr.</option>
+                                <option value="Mrs.">Mrs.</option>
+                                <option value="Ms.">Ms.</option>
+                            </select>
+                            <label for="firstname" class="sr-only">First Name</label>
+                            <input type="text" class="form-control"  name="contactFirstname" placeholder="First name" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <label for="lastname" class="sr-only">Lastame</label>
+                        <input type="text" class="form-control" name="contactLastname" placeholder="Lastname" required>
+                    </div>
+                </div>            
+
+                <div class="row" style="margin-bottom: 10px;">                        
+                    <div class="col-sm-12 col-xl-6">
+                        <input type="tel" class="form-control" name="contactTel" placeholder="Phone number" required>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <input type="email" class="form-control" name="contactEmail" placeholder="E mail" required>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="head-detail"><h5>Traveler Details</h5></div>
+                <!-- Adult -->
+                <% for(i=0; i < booked.adult; i++) { %>
+                <div class="box" style="margin-bottom: 10px;">
+                    <h5>Adult <%= i+1 %></h5>
+
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="input-group">
+                                <select class="form-control" name="travelerTitle" required >
+                                    <option selected disabled>Title</option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Ms.">Ms.</option>
+                                </select>
+                                <label for="firstname" class="sr-only">First Name</label>
+                                <input type="text" class="form-control"  name="travelerFirstname" placeholder="First name" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <label for="lastname" class="sr-only">Lastame</label>
+                            <input type="text" class="form-control" name="travelerLastname" placeholder="Lastname" required>
+                        </div>
+                    </div>            
+    
+                    <div class="row" style="margin-bottom: 10px;">                        
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" name="travelerBirth"
+                                id="birthDate" placeholder="Birth Date" max="" required>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <input type="text" class="form-control" name="travelerNationallity" placeholder="Nationallity" required>
+                        </div>
+                    </div>   
+
+                    <h7>Passport detail</h7>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" type="text" name="travelerPassportnumber" placeholder="Passport number" required>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" name="travelerPassportdate"
+                                id="expDate" placeholder="Passport exp" min="" required>
+                        </div>
+                    </div>                
+                </div>
+                <% } %>
+                <!-- Child -->
+                <% for(i=0; i < booked.child; i++) { %>
+                <div class="box" style="margin-bottom: 10px;">
+                    <h5>Child <%= i+1 %></h5>
+
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="input-group">
+                                <select class="form-control" name="travelerTitle" required >
+                                    <option selected disabled>Title</option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                </select>
+                                <label for="firstname" class="sr-only">First Name</label>
+                                <input type="text" class="form-control"  name="travelerFirstname" placeholder="First name" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <label for="lastname" class="sr-only">Lastame</label>
+                            <input type="text" class="form-control" name="travelerLastname" placeholder="Lastname" required>
+                        </div>
+                    </div>            
+    
+                    <div class="row" style="margin-bottom: 10px;">                        
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" name="travelerBirth"
+                                id="birthDate" placeholder="Birth Date" max="" required>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <input type="text" class="form-control" name="travelerNationallity" placeholder="Nationallity" required>
+                        </div>
+                    </div>   
+
+                    <h7>Passport detail</h7>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" type="text" name="travelerPassportnumber" placeholder="Passport number" required>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" name="travelerPassportdate"
+                                id="expDate" placeholder="Passport exp" min="" required>
+                        </div>
+                    </div>                
+                </div>
+                <% } %>
+                <!-- Infant -->
+                <% for(i=0; i < booked.infant; i++) { %>
+                <div class="box" style="margin-bottom: 10px;">
+                    <h5>Infant <%= i+1 %></h5>
+
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="input-group">
+                                <select class="form-control" name="travelerTitle" required >
+                                    <option selected disabled>Title</option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                </select>
+                                <label for="firstname" class="sr-only">First Name</label>
+                                <input type="text" class="form-control"  name="travelerFirstname" placeholder="First name" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <label for="lastname" class="sr-only">Lastame</label>
+                            <input type="text" class="form-control" name="travelerLastname" placeholder="Lastname" required>
+                        </div>
+                    </div>            
+    
+                    <div class="row" style="margin-bottom: 10px;">                        
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" name="travelerBirth"
+                                id="birthDate" placeholder="Birth Date" max="" required>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <input type="text" class="form-control" name="travelerNationallity" placeholder="Nationallity" required>
+                        </div>
+                    </div>   
+
+                    <h7>Passport detail</h7>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" type="text" name="travelerPassportnumber" placeholder="Passport number" required>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <input class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" name="travelerPassportdate"
+                                id="expDate" placeholder="Passport exp" min="" required>
+                        </div>
+                    </div>                
+                </div>
+                <% } %>
+        </div>
+                    
+
+        <div class="m-3 col-md-4">
+            <!-- Flight Details  -->
+            <div class="box">
+                <h5> <%= flight.origin.city %> <i class="bi bi-arrow-right"></i> <%= flight.destination.city %> </h5>
+                <hr>
+                <h6>Departure: <%= flight.departure %> </h6>
+                <div class="row">
+                    <div class="row" style="margin-left:5px; margin-top: 5px;">
+                        <div class="col-4 col-sm-10 col-md-2 col-xl-9">
+                            <strong><%= flight.airline.name %></strong><br>
+                            <% if(booked.seatclass == "economy") { %>
+                                Economy 
+                            <% } else if(booked.seatclass == "business") { %>
+                                Business
+                            <% } else { %>
+                                First class 
+                            <% } %>
+                        </div>      
+                        <div class="col-4 col-sm-2 col-md-2 col-xl-3 text-start">
+                            <img src="<%= flight.airline.logo %>" alt="Airline logo" width="45px" height="45px">
+                        </div>                           
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 5px; margin-top: 15px;">
+                    <div class="col-4 col-sm-3 col-xl-3" id="flightOrigin">
+                        <div class="fw-bold">
+                            <%= flight.departureTime %>
+                        </div>
+                        <div>
+                            <%= flight.origin.IATA %>
+                        </div>
+                    </div>
+
+                    <div class="col-3 col-sm-1 col-xl-1"><i class="bi bi-arrow-right"></i> </div>
+
+                    <div class="col-4 col-sm-3 col-xl-3 " id="flightDestination">
+                        <div class="fw-bold">
+                            <%= flight.arrivalTime %>
+                        </div>
+                        <div>
+                            <%= flight.destination.IATA %>
+                        </div>
+                    </div>
+                    
+                    <div class="col-1 col-sm-1 col-xl-1"></div>
+
+                    <div class="col-sm-4 col-md-3 col-xl-4" id="flightTransit">
+                        <div class="fw-bold">
+                            Transit
+                        </div>
+                        <div>
+                            <i class="bi bi-dot"></i> <%= flight.transit %>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            <br>
+
+            <!-- Price Details -->
+            <div class="box">
+                <h5 class="mb-3">Summary</h5>
+                <hr>
+
+                <% if(booked.adult > 0) { %>
+                    <div class="row">
+                    <h6 class="text-start col-7"><%= flight.airline.name %> (Adult) x <%= booked.adult %> </h6>
+                    <h6 class="text-end col-3"> THB</h6>
+                    <h6 class="text-end col-2">
+                
+                    <% if(booked.seatclass == "economy") { %>
+                        <%= booked.adult * flight.classInfo.economy.ecoPriceAdult %>
+                    <% } else if(booked.seatclass == "business") { %>
+                        <%= booked.adult * flight.classInfo.business.busPriceAdult %>
+                    <% } else { %>
+                        <%= booked.adult * flight.classInfo.firstclass.firstPriceAdult %>
+                    <% } %>
+                        </h6>
+                    </div>
+                <% } %>
+                <% if(booked.child > 0) { %>
+                    <div class="row">
+                        <h6 class="text-start col-7"><%= flight.airline.name %> (Child) x <%= booked.child %> </h6>
+                        <h6 class="text-end col-3"> THB</h6>
+                        <h6 class="text-end col-2">
+                        <% if(booked.seatclass == "economy") { %>
+                            <%= booked.child * flight.classInfo.economy.ecoPriceChild %>
+                        <% } else if(booked.seatclass == "business") { %>
+                            <%= booked.child * flight.classInfo.business.busPriceChild %>
+                        <% } else { %>
+                            <%= booked.child * flight.classInfo.firstclass.firstPriceChild %>
+                        <% } %>                            
+                        </h6>
+                    </div>
+                <% } %>
+                <% if(booked.infant > 0) { %>
+                    <div class="row">
+                        <h6 class="text-start col-7"><%= flight.airline.name %> (Infant) x <%= booked.infant %> </h6>
+                        <h6 class="text-end col-3"> THB</h6>
+                        <h6 class="text-end col-2">
+                        <% if(booked.seatclass == "economy") { %>
+                            <%= booked.infant * flight.classInfo.economy.ecoPriceInfant %>
+                        <% } else if(booked.seatclass == "business") { %>
+                            <%= booked.infant * flight.classInfo.business.busPriceInfant %>
+                        <% } else { %>
+                            <%= booked.infant * flight.classInfo.firstclass.firstPriceInfant %>
+                        <% } %>
+                        </h6>
+                    </div>
+                <% } %>
+                <hr>
+
+                <div class="row">
+                    <h6 class="text-start col-6">Price you pay</h6>
+                    <h6 class="text-end col-4"> THB</h6>
+                    <h6 class="text-end col-2"> <%= booked.totalPrice %> </h6>                       
+                </div>
+            </div>
+
+                   
+            <div class="text-center my-3">
+                <input type="hidden" name="passenger" value="<%= booked.passenger %>">
+                <input type="hidden" name="totalPrice" value="<%= booked.totalPrice %>">
+                <input type="hidden" name="seatclass"   value="<%= booked.seatclass %>">
+                
+                <button type="submit" class="btn btn-purple"  name="flightNumber"> Continue to Payment </button>
+                
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</form>
+</div>
+
+<%- include('../partials/footer-user.ejs') %>

@@ -13,6 +13,7 @@ var User = require('./models/user');
 // declare routes
 var indexRoutes = require('./routes/index'),
     flightRoutes = require('./routes/flight'),
+    paymentRoutes = require('./routes/payment'),
     adminRoutes = require('./routes/admin');
 
 mongoose.connect('mongodb://localhost/AeolusTravelProject');
@@ -38,8 +39,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash('error');
@@ -47,10 +46,13 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(bodyParser.urlencoded({extended: true}));
+
 // use routes
 app.use('/', indexRoutes);
 app.use('/admin', adminRoutes);
 app.use('/flight', flightRoutes);
+app.use('/flight/payment', paymentRoutes);
 
 app.get('*', function (req, res) {
     res.send('Bad request.');

@@ -4,7 +4,7 @@
 <section class="add-info-box">
     <h1> Add Flight</h1>
     <form class="add-info-subbox" style="margin-bottom: 100px;" action='/admin/flight/add-new' method="POST">
-        <div class="container">
+        <div class="container-fluid" style="padding-left: 5%; padding-right: 5%;">
             <!-- Flight number, Airline, Aircraft-->
             <div class="row">
                 <!-- Flight number -->
@@ -39,10 +39,10 @@
                 </div>
             </div>
 
-            <!-- Location, Mileage, Departure, Arrival -->
-            <div class="row" style="margin-bottom: 30px;">
+            <!-- Location, Departure, Arrival -->
+            <div class="row">
                 <!-- Location -->
-                <div class="mb-5 col-md-5">
+                <div class="mb-6 col-md-6">
                     <label for="airline" class="form-label">Location</label>
                     <div class="input-group">
                         <span class="input-group-text">From</span>
@@ -65,23 +65,44 @@
                         </select>
                     </div>                      
                 </div>
-                <!-- Mileage -->
-                <div class="mb-1 col-md-1">
-                    <label class="form-label">Mileage</label>
-                    <input type="number" class="form-control" name="mileage" min="1" required>
-                </div>
                 <!-- Departure, Arrival -->
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Departure</label>
-                    <input type="datetime-local" class="form-control" name="departure" id="departureDate" 
-                        min="" onchange="checkDate()" required>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="departure" id="departureDate" 
+                            min="" onchange="checkDate()" required>
+                        <input type="time" class="form-control" name="departureTime" id="departureTime" 
+                            onchange="checkTime()" required>
+                    </div>
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Arrival</label>
-                    <input type="datetime-local" class="form-control" name="arrival" id="arrivalDate" 
-                        min="" onchange="checkDate()" required>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="arrival" id="arrivalDate" 
+                            min="" onchange="checkDate()" required>
+                        <input type="time" class="form-control" name="arrivalTime" id="arrivalTime" 
+                            onchange="checkTime()" required>
+                    </div>
                 </div>
             </div>
+            <!-- Transit, Mileage-->
+            <div class="row" style="margin-bottom: 30px;">
+                <!-- Transit-->
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Transit</label>
+                    <select class="form-select" list="transit" name="transit" required>
+                        <option value="Direct"> Direct </option>
+                        <option value="1 transit"> 1 transit</option>
+                        <option value="2+ transit"> 2+ transit</option>
+                    </select>
+                </div>
+                <!-- Mileage -->
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Mileage</label>
+                    <input type="number" class="form-control" name="mileage" min="1" required>
+                </div>
+            </div>
+               
 
             <!-- Economy Class -->
             <div class="row" style="margin-top: 15px;">

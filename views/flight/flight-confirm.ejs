@@ -1,0 +1,283 @@
+<%- include('../partials/header-user.ejs') %>
+<%- include('../partials/nav-user.ejs') %>
+<div class="content-info">
+    <!-- Flight Head -->
+    <div class="row" style="width: 96%;">
+        <div class="m-3 col-md-12">
+            <div class="box">
+                <div class="row">                       
+                    <div class="col-sm-12 col-md-8">
+                        <h5><strong>Flight form <%= flight.origin.city %> to <%= flight.destination.city %></strong></h5>
+                        <p> 
+                            <%= flight.origin.city %> (<%= flight.origin.IATA %>) <i class="bi bi-arrow-right"></i> <%= flight.destination.city %> (<%= flight.destination.IATA %>) | <%= bookinfo.departure %> <br>
+                            <!-- Passenger -->
+                            <%= bookinfo.adult %> Adult
+                            <% if(bookinfo.child > 0) { %>
+                                , <%= bookinfo.child %> Child
+                            <% } %>
+                            <% if(bookinfo.infant > 0) { %>
+                                , <%= bookinfo.infant %> Infant
+                            <% } %>
+                            <!-- Seat class -->
+                            <% if(bookinfo.seatclass == "economy") { %>
+                                 | Economy 
+                            <% } else if(bookinfo.seatclass == "business") { %>
+                                 | Business
+                            <% } else { %>
+                                 | First class 
+                            <% } %> 
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-4 my-3 text-end">
+                        <button class="btn btn-primary" onclick="goBack()"> <i class="bi bi-arrow-clockwise"></i> Change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="justify-content-center">
+        <div class="row">
+            <!-- Flight Detail -->  
+            <div class="m-3 col-md-7">
+                <div class="box">
+                    <h5> <%= flight.origin.city %> (<%= flight.origin.IATA %>) <i class="bi bi-arrow-right"></i> <%= flight.destination.city %> (<%= flight.destination.IATA %>) </h5>
+                    <hr>
+                    <!-- Airline -->
+                    <div class="row align-items-center justify-content-center">
+                        <div class="row">
+                            <h5><%= bookinfo.departure %></h5>
+                        </div>
+                        <div class="row" style="margin-top: 5px;">
+                            <div class="col-4 col-sm-2 col-md-2 col-xl-1">
+                                    <img src="<%= flight.airline.logo %>" alt="Airline logo" width="45px" height="45px">
+                            </div>
+                            <div class="col-4 col-sm-10 col-md-2 col-xl-6">
+                                <%= flight.airline.name %> (<%= flight.flightNumber %>) <br>
+                                <% if(bookinfo.seatclass == "economy") { %>
+                                    Economy 
+                                <% } else if(bookinfo.seatclass == "business") { %>
+                                    Business
+                                <% } else { %>
+                                    First class 
+                                <% } %>
+                            </div>                                
+                        </div>
+                    </div>
+
+                    <!-- Departure, Arrival, Transit -->
+                    <div class="row" style="margin-left: 5px; margin-top: 15px;">
+                        <div class="col-4 col-sm-3 col-xl-3" id="flightOrigin">
+                            <div class="fw-bold">
+                                <%= flight.departureTime %>
+                            </div>
+                            <div>
+                                <%= flight.origin.city %> (<%= flight.origin.IATA %>) 
+                            </div>
+                        </div>
+
+                        <div class="col-3 col-sm-1 col-xl-1"><i class="bi bi-arrow-right"></i> </div>
+
+                        <div class="col-4 col-sm-3 col-xl-3 " id="flightDestination">
+                            <div class="fw-bold">
+                                <%= flight.arrivalTime%>
+                            </div>
+                            <div>
+                                <%= flight.destination.city %> (<%= flight.destination.IATA %>) 
+                            </div>
+                        </div>
+                        
+                        <div class="col-3 col-sm-1 col-xl-1"></div>
+
+                        <div class="col-sm-4 col-md-3 col-xl-3" id="flightTransit">
+                            <div class="fw-bold">
+                                Transit
+                            </div>
+                            <div>
+                                <i class="bi bi-dot"></i> <%= flight.transit %> 
+                            </div>
+                            
+                        </div>
+
+
+                    </div>
+                    <hr>
+
+                    <div class="row" style="margin-left: 5px; margin-top: 15px;">
+                        <h5> More Detail</h5>
+                        <% if(bookinfo.seatclass == "economy") { %>
+                            <div class="col">
+
+                                <b>Baggage</b> <%= flight.classInfo.economy.ecoBaggage %> Kg <br>
+                                <b>Cabin Baggage</b> <%= flight.classInfo.economy.ecoCabinBaggage %> Kg <br>
+
+                                <% if(flight.classInfo.economy.ecoMeal) { %>
+                                    <i class="bi bi-plus"></i> Meal <br>
+                                <% } %>
+                                <% if(flight.classInfo.economy.ecoEntertain) { %>
+                                    <i class="bi bi-plus"></i> Entertain <br>
+                                <% } %>
+                                <% if(flight.classInfo.economy.ecoWifi) { %>
+                                    <i class="bi bi-plus"></i> Wifi <br>
+                                <% } %>
+                                <% if(flight.classInfo.economy.ecoUsb) { %>
+                                    <i class="bi bi-plus"></i> USB <br>
+                                <% } %>
+                            </div>
+                            <div class="col">
+                                <b>Aircraft Model:</b> <%= flight.aircraft.aircraftModel %> <br>
+                                <b>Lay-out:</b> <%= flight.aircraft.economy.ecoSeatLayout %> <br>
+                                <b>Seat Pitch:</b>  <%= flight.aircraft.economy.ecoSeatPitch %> inch <br>
+                            </div>
+                        <% } else if(bookinfo.seatclass == "business") { %>
+                            <div class="col"> 
+                                <b>Baggage</b> <%= flight.classInfo.business.busBaggage %> Kg <br>
+                                <b>Cabin Baggage</b> <%= flight.classInfo.business.busCabinBaggage %> Kg <br>
+
+                                <% if(flight.classInfo.business.busMeal) { %>
+                                    <i class="bi bi-plus"></i> Meal <br>
+                                <% } %>
+                                <% if(flight.classInfo.business.busEntertain) { %>
+                                    <i class="bi bi-plus"></i> Entertain <br>
+                                <% } %>
+                                <% if(flight.classInfo.business.busWifi) { %>
+                                    <i class="bi bi-plus"></i> Wifi <br>
+                                <% } %>
+                                <% if(flight.classInfo.business.busUsb) { %>
+                                    <i class="bi bi-plus"></i> USB <br>
+                                <% } %>
+                            </div>
+                            <div class="col">
+                                <b>Aircraft Model:</b> <%= flight.aircraft.aircraftModel %> <br>
+                                <b>Lay-out:</b> <%= flight.aircraft.business.busSeatLayout %> <br>
+                                <b>Seat Pitch:</b>  <%= flight.aircraft.business.busSeatPitch %> inch <br>
+                            </div>
+                        <% } else { %>
+                            <div class="col"> 
+                                <b>Baggage</b> <%= flight.classInfo.firstclass.firstBaggage %> Kg <br>
+                                <b>Cabin Baggage</b> <%= flight.classInfo.firstclass.firstCabinBaggage %> Kg <br>
+                            
+                                <% if(flight.classInfo.firstclass.firstMeal) { %>
+                                    <i class="bi bi-plus"></i> Meal <br>
+                                <% } %>
+                                <% if(flight.classInfo.firstclass.firstEntertain) { %>
+                                    <i class="bi bi-plus"></i> Entertain <br>
+                                <% } %>
+                                <% if(flight.classInfo.firstclass.firstWifi) { %>
+                                    <i class="bi bi-plus"></i> Wifi <br>
+                                <% } %>
+                                <% if(flight.classInfo.firstclass.firstUsb) { %>
+                                    <i class="bi bi-plus"></i> USB <br>
+                                <% } %>
+                            </div>
+                            <div class="col">
+                                <b>Aircraft Model:</b> <%= flight.aircraft.aircraftModel %> <br>
+                                <b>Lay-out:</b> <%= flight.aircraft.firstclass.firstSeatLayout %> <br>
+                                <b>Seat Pitch:</b>  <%= flight.aircraft.firstclass.firstSeatPitch %> inch <br>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <!-- Price Detail -->
+            <div class="m-3 col-md-4">
+                <div class="box">
+                    <h5 class="mb-3">Summary</h5>
+                    <hr>
+
+                    <% if(bookinfo.adult > 0) { %>
+                    <div class="row">
+                        <h6 class="text-start col-7"><%= flight.airline.name %> (Adult) x <%= bookinfo.adult %> </h6>
+                        <h6 class="text-end col-3"> THB</h6>
+                        <h6 class="text-end col-2">
+                        <% if(bookinfo.seatclass == "economy") { %>
+                            <%= bookinfo.adult * flight.classInfo.economy.ecoPriceAdult %>
+                        <% } else if(bookinfo.seatclass == "business") { %>
+                            <%= bookinfo.adult * flight.classInfo.business.busPriceAdult %>
+                        <% } else { %>
+                            <%= bookinfo.adult * flight.classInfo.firstclass.firstPriceAdult %>
+                        <% } %>
+                        </h6>
+                    </div>
+                    <% } %>
+                    <% if(bookinfo.child > 0) { %>
+                    <div class="row">
+                        <h6 class="text-start col-7"><%= flight.airline.name %> (Child) x <%= bookinfo.child %> </h6>
+                        <h6 class="text-end col-3"> THB</h6>
+                        <h6 class="text-end col-2">
+                        <% if(bookinfo.seatclass == "economy") { %>
+                            <%= bookinfo.child * flight.classInfo.economy.ecoPriceChild %>
+                        <% } else if(bookinfo.seatclass == "business") { %>
+                            <%= bookinfo.child * flight.classInfo.business.busPriceChild %>
+                        <% } else { %>
+                            <%= bookinfo.child * flight.classInfo.firstclass.firstPriceChild %>
+                        <% } %>                            
+                        </h6>
+                    </div>
+                    <% } %>
+                    <% if(bookinfo.infant > 0) { %>
+                    <div class="row">
+                        <h6 class="text-start col-7"><%= flight.airline.name %> (Infant) x <%= bookinfo.infant %> </h6>
+                        <h6 class="text-end col-3"> THB</h6>
+                        <h6 class="text-end col-2">
+                        <% if(bookinfo.seatclass == "economy") { %>
+                            <%= bookinfo.infant * flight.classInfo.economy.ecoPriceInfant %>
+                        <% } else if(bookinfo.seatclass == "business") { %>
+                            <%= bookinfo.infant * flight.classInfo.business.busPriceInfant %>
+                        <% } else { %>
+                            <%= bookinfo.infant * flight.classInfo.firstclass.firstPriceInfant %>
+                        <% } %>
+                        </h6>
+                    </div>
+                    <% } %>
+                    <hr>
+
+                    <div class="row">
+                        <h6 class="text-start col-6">Price you pay</h6>
+                        <h6 class="text-end col-4"> THB</h6>
+                        <h6 class="text-end col-2">
+                        <% if(bookinfo.seatclass == "economy") { %>
+                            <%= bookinfo.adult * flight.classInfo.economy.ecoPriceAdult + bookinfo.child * flight.classInfo.economy.ecoPriceChild + bookinfo.infant * flight.classInfo.economy.ecoPriceInfant %>
+                        <% } else if(bookinfo.seatclass == "business") { %>
+                            <%= bookinfo.adult * flight.classInfo.business.busPriceAdult + bookinfo.child * flight.classInfo.business.busPriceChild +  bookinfo.infant * flight.classInfo.business.busPriceInfant %>
+                        <% } else { %>
+                            <%= bookinfo.adult * flight.classInfo.firstclass.firstPriceAdult + bookinfo.child * flight.classInfo.firstclass.firstPriceChild +  bookinfo.infant * flight.classInfo.firstclass.firstPriceInfant %>
+                        <% } %>
+                        </h6>                       
+                    </div>
+
+                </div>
+
+                <div>
+                    <form class="text-center" action='/flight/<%= flight._id %>/booking' method="POST"> 
+                        <input type="hidden" name="departure" value="<%= flight.departure %>">
+                        <input type="hidden" name="origin" value="<%= flight.origin %>">
+                        <input type="hidden" name="destination" value="<%= flight.destination %>">
+
+                        <input type="hidden" name="seatclass" value="<%= bookinfo.seatclass %>">
+                        <input type="hidden" name="adult" value="<%= bookinfo.adult %>">
+                        <input type="hidden" name="child" value="<%= bookinfo.child %>">
+                        <input type="hidden" name="infant" value="<%= bookinfo.infant %>">
+                        <input type="hidden" name="passenger" value="<%= bookinfo.passenger %>">
+
+                        <% if(bookinfo.seatclass == "economy") { %>
+                            <input type="hidden" name="totalPrice"
+                                value="<%= bookinfo.adult * flight.classInfo.economy.ecoPriceAdult + bookinfo.child * flight.classInfo.economy.ecoPriceChild + bookinfo.infant * flight.classInfo.economy.ecoPriceInfant %>">
+                        <% } else if(bookinfo.seatclass == "business") { %>
+                            <input type="hidden" name="totalPrice"
+                                value="<%= bookinfo.adult * flight.classInfo.business.busPriceAdult + bookinfo.child * flight.classInfo.business.busPriceChild + bookinfo.infant * flight.classInfo.business.busPriceInfant %>">
+                        <% } else { %>
+                            <input type="hidden" name="totalPrice"
+                                value="<%= bookinfo.adult * flight.classInfo.firstclass.firstPriceAdult + bookinfo.child * flight.classInfo.firstclass.firstPriceChild + bookinfo.infant * flight.classInfo.firstclass.firstPriceInfant %>">
+                        <% } %>
+                        
+                        <button type="submit" class="btn btn-purple" value="<%= flight._id %>" name="flightid"> Continue to Booking </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer-user.ejs') %>

@@ -1,0 +1,203 @@
+<%- include('../partials/header-user.ejs') %>
+<%- include('../partials/nav-user.ejs') %>
+
+<div class="content-info">
+    <!-- Search data-->
+    <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+            <h5 class="card-title"><%= searchData.origin.city %> (<%= searchData.origin.IATA %>) <i class="bi bi-arrow-right"></i> <%= searchData.destination.city %> (<%= searchData.destination.IATA %>)  </h5>
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="card-text">Date: <%= searchData.departure %> | <%= searchData.passenger %> passengers | 
+                        <% if(searchData.seatclass == "economy") { %>
+                            Economy 
+                        <% } else if(searchData.seatclass == "business") { %>
+                            Business
+                        <% } else { %>
+                            First class 
+                        <% } %>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="card-text text-end"><a href="/flight" class="btn btn-primary"><i class="bi bi-search"></i> Change search</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Filter -->
+    <!--
+        <section>
+        <div class="mb-3 d-flex" style="margin-top: 5px;">
+            <h5 style="margin-top: 10px; margin-right: 10px;">Filter: </h5>
+          
+            <div class="dropdown" id="sort_flight">
+                <button class="btn sort-dropdown dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Airline
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <form action='/flight/sort' method="POST">
+                </form>
+              </ul>
+            </div>
+
+            <div class="dropdown" id="sort_price">
+                <button class="btn sort-dropdown dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Price
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <form action='/flight/sort' method="POST">
+                        <li><button class="dropdown-item" type="submit" value="lowPrice" name="sortType">Lowest price</button></li>
+                    
+                        <input type="hidden" name="seatclass" value="<%= searchData.seatclass %>">
+                        <input type="hidden" name="origin" value="<%= searchData.origin %>">
+                        <input type="hidden" name="destination" value="<%= searchData.destination %>">
+                        <input type="hidden" name="departure" value="<%= searchData.departure %>">
+                        <input type="hidden" name="adult" value="<%= searchData.adult %>">
+                        <input type="hidden" name="child" value="<%= searchData.child %>">
+                        <input type="hidden" name="infant" value="<%= searchData.infant %>">
+                                
+                    </form>
+                  <form action='/flight/sort' method="POST">
+                    <li><button class="dropdown-item" type="submit" value="highPrice" name="sortType">Highest price</button>
+                        <input type="hidden" name="seatclass" value="<%= searchData.seatclass %>">
+                        <input type="hidden" name="origin" value="<%= searchData.origin %>">
+                        <input type="hidden" name="destination" value="<%= searchData.destination %>">
+                        <input type="hidden" name="departure" value="<%= searchData.departure %>">
+                        <input type="hidden" name="adult" value="<%= searchData.adult %>">
+                        <input type="hidden" name="child" value="<%= searchData.child %>">
+                        <input type="hidden" name="infant" value="<%= searchData.infant %>">
+                        <input type="hidden" name="passenger" value="<%= searchData.passenger %>">
+                    </li>
+                  </form>
+                </ul>
+              </div>
+      
+          </div>
+    </section>
+    -->
+    
+
+    <!-- List -->
+    <section>
+    <% flights.forEach((flight)=> { %>
+    <form class="" action='/flight/<%= flight._id %>/confirm' method="POST">
+        <div class="card mb-3" style="padding: 20px;">
+            <div class="row">
+                <div class="md-3 col-md-3" id="flightAirline">
+                    <img src="<%= flight.airline.logo %>" alt="Airline logo" width="40" height="40">
+                    <b><%= flight.airline.name %></b>
+                    (<%= flight.flightNumber %>)
+                </div>
+
+                <div class="md-4 col-md-4" id="flightLocation">
+                    <div class="row">
+                        <div class="md-5 col-md-5" id="flightOrigin">
+                            <h5><%= flight.departureTime %></h5>
+                            <%= flight.origin.city %> (<%= flight.origin.IATA %>)                 
+                        </div>
+                        <div class="md-2 col-md-2">
+                            <i class="bi bi-arrow-right"></i>     
+                        </div>
+                        <div class="md-5 col-md-5" id="flightOrigin">
+                            <h5><%= flight.arrivalTime %></h5>
+                            <%= flight.destination.city %> (<%= flight.destination.IATA %>)                 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-1 col-md-1" id="flightLocation">
+                    <h5>Transit</h5>
+                    <i class="bi bi-dot"></i> <%= flight.transit %> 
+                </div>
+
+                <div class="md-2 col-md-2" id="flightClassInfo">
+                    <% if(searchData.seatclass == "economy") { %>
+                        <strong>
+                            Baggage <%= flight.classInfo.economy.ecoBaggage %> Kg <br>
+                            Cabin Baggage <%= flight.classInfo.economy.ecoCabinBaggage %> Kg <br>
+                        </strong>
+                        <% if(flight.classInfo.economy.ecoMeal) { %>
+                            <i class="bi bi-plus"></i> Meal <br>
+                        <% } %>
+                        <% if(flight.classInfo.economy.ecoEntertain) { %>
+                            <i class="bi bi-plus"></i> Entertain <br>
+                        <% } %>
+                        <% if(flight.classInfo.economy.ecoWifi) { %>
+                            <i class="bi bi-plus"></i> Wifi <br>
+                        <% } %>
+                        <% if(flight.classInfo.economy.ecoUsb) { %>
+                            <i class="bi bi-plus"></i> USB <br>
+                        <% } %>
+
+                    <% } else if(searchData.seatclass == "business") { %>
+                        <strong>
+                            Baggage <%= flight.classInfo.business.busBaggage %> Kg <br>
+                            Cabin Baggage <%= flight.classInfo.business.busCabinBaggage %> Kg <br>
+                        </strong>
+                        <% if(flight.classInfo.business.busMeal) { %>
+                            <i class="bi bi-plus"></i> Meal <br>
+                        <% } %>
+                        <% if(flight.classInfo.business.busEntertain) { %>
+                            <i class="bi bi-plus"></i> Entertain <br>
+                        <% } %>
+                        <% if(flight.classInfo.business.busWifi) { %>
+                            <i class="bi bi-plus"></i> Wifi <br>
+                        <% } %>
+                        <% if(flight.classInfo.business.busUsb) { %>
+                            <i class="bi bi-plus"></i> USB <br>
+                        <% } %>
+
+                    <% } else { %>
+                        <strong>
+                            Baggage <%= flight.classInfo.firstclass.firstBaggage %> Kg <br>
+                            Cabin Baggage <%= flight.classInfo.firstclass.firstCabinBaggage %> Kg <br>
+                        </strong>
+                        <% if(flight.classInfo.firstclass.firstMeal) { %>
+                            <i class="bi bi-plus"></i> Meal <br>
+                        <% } %>
+                        <% if(flight.classInfo.firstclass.firstEntertain) { %>
+                            <i class="bi bi-plus"></i> Entertain <br>
+                        <% } %>
+                        <% if(flight.classInfo.firstclass.firstWifi) { %>
+                            <i class="bi bi-plus"></i> Wifi <br>
+                        <% } %>
+                        <% if(flight.classInfo.firstclass.firstUsb) { %>
+                            <i class="bi bi-plus"></i> USB <br>
+                        <% } %>
+                    <% } %>
+                </div>
+
+                <div class="md-2 col-md-2" id="flightLocation">
+                    <h4><strong style="color: blueviolet;">THB
+                    <% if(searchData.seatclass == "economy") { %>
+                        <%= searchData.adult * flight.classInfo.economy.ecoPriceAdult + searchData.child * flight.classInfo.economy.ecoPriceChild + searchData.infant * flight.classInfo.economy.ecoPriceInfant %>
+                    <% } else if(searchData.seatclass == "business") { %>
+                        <%= searchData.adult * flight.classInfo.business.busPriceAdult + searchData.child * flight.classInfo.business.busPriceChild +  searchData.infant * flight.classInfo.business.busPriceInfant %>
+                    <% } else { %>
+                        <%= searchData.adult * flight.classInfo.firstclass.firstPriceAdult + searchData.child * flight.classInfo.firstclass.firstPriceChild +  searchData.infant * flight.classInfo.firstclass.firstPriceInfant %>
+                    <% } %>
+                    </strong>/pax</h4>
+                    <button type="submit" class="btn btn-purple" style="border-radius: 20px;"value="<%= flight._id %>" name="flightNumber"> Choose </button>
+                </div>
+            </div>
+       
+        </div>
+
+        <input type="hidden" name="departure" value="<%= searchData.departure %>">
+        <input type="hidden" name="origin" value="<%= searchData.origin %>">
+        <input type="hidden" name="destination" value="<%= searchData.destination %>">
+        <input type="hidden" name="seatclass" value="<%= searchData.seatclass %>">
+
+        <input type="hidden" name="adult" value="<%= searchData.adult %>">
+        <input type="hidden" name="child" value="<%= searchData.child %>">
+        <input type="hidden" name="infant" value="<%= searchData.infant %>">
+
+    </form>
+    <% }) %>
+    </section>
+
+</div>
+<%- include('../partials/footer-user.ejs') %>

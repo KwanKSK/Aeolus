@@ -15,14 +15,26 @@ var BookingSchema = new mongoose.Schema({
     },
 
     booker: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        username:{
+            type: String,
+        } 
     },
 
-    travelers: {
+    traveler: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Traveler'
     },
+
+    adult:  Number,
+    child:  Number,
+    infant: Number,
+
+    seatclass:  String,
+    totalPrice: Number,
 
     paymentstatus:{ type:String, default:"Waiting for payment"}
 

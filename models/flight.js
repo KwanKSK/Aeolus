@@ -20,10 +20,14 @@ var FlightSchema = new mongoose.Schema({
         ref: 'Airport'
     },
 
-    departure:  Date,
-    arrival:    Date,
+    departure:  String,
+    departureTime:  String,
+    arrival:    String,
+    arrivalTime:    String,
 
     mileage:    Number,
+
+    transit: String,
 
     classInfo:{
         economy:{

@@ -4,13 +4,13 @@
 <section class="add-info-box">
     <h1> Edit Flight</h1>
     <form class="add-info-subbox" action='/admin/flight/<%= flight._id %>/edit?_method=PUT' method="POST">
-        <div class="container">
+        <div class="container-fluid" style="padding-left: 5%; padding-right: 5%;">
             <!-- Flight number, Airline, Aircraft-->
             <div class="row">
                 <!-- Flight number -->
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Flight Number</label>
-                    <input type="text" class="form-control" name="fligth[flightNumber]"
+                    <input type="text" class="form-control" name="flight[flightNumber]"
                         placeholder="<%= flight.flightNumber %>" value="<%= flight.flightNumber %>" required>
                 </div>
                 <!-- Airline, Aircraft -->
@@ -42,10 +42,10 @@
                 </div>
             </div>
 
-            <!-- Location, Mileage, Departure, Arrival -->
-            <div class="row" style="margin-bottom: 30px;">
+            <!-- Location, Departure, Arrival -->
+            <div class="row">
                 <!-- Location -->
-                <div class="mb-5 col-md-5">
+                <div class="mb-6 col-md-6">
                     <label for="airline" class="form-label">Location</label>
                     <div class="input-group">
                         <span class="input-group-text">From</span>
@@ -73,23 +73,47 @@
                         </select>
                     </div>                      
                 </div>
+                <!-- Departure, Arrival -->
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Departure</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="flight[departure]" id="departureDate" 
+                            placeholder="<%= flight.departure %>" value="<%= flight.departure %>"  min="" onchange="checkDate()" required>
+                        <input type="time" class="form-control" name="flight[departureTime]" id="departureTime" 
+                            placeholder="<%= flight.departureTime %>" value="<%= flight.departureTime %>" onchange="checkTime()" required>
+                    </div>
+                    
+                    
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Arrival</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="flight[arrival]" id="arrivalDate" 
+                            placeholder="<%= flight.arrival %>" value="<%= flight.arrival %>"  min="" onchange="checkDate()" required>
+                        <input type="time" class="form-control" name="flight[arrivalTime]" id="arrivalTime"
+                            placeholder="<%= flight.arrivalTime %>" value="<%= flight.arrivalTime %>" onchange="checkTime()" required>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- Transit, Mileage-->
+            <div class="row" style="margin-bottom: 30px;">
+                <!-- Transit-->
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Transit</label>
+                    <select class="form-select" list="transit" name="flight[transit]" required>
+                        <option value="<%= flight.transit %>" disabled><%= flight.transit %></option>
+                        <option value="Direct"> Direct</option>
+                        <option value="1 transit"> 1 transit</option>
+                        <option value="2+ transit"> 2+ transit</option>
+                    </select>
+                </div>
                 <!-- Mileage -->
-                <div class="mb-1 col-md-1">
+                <div class="mb-3 col-md-3">
                     <label class="form-label">Mileage</label>
                     <input type="number" class="form-control" name="flight[mileage]" 
                         value="<%= flight.mileage %>"
                         placeholder="<%= flight.mileage %>" min="1" required>
-                </div>
-                <!-- Departure, Arrival -->
-                <div class="mb-3 col-md-3">
-                    <label class="form-label">Departure</label>
-                    <input type="datetime-local" class="form-control" name="flight[departure]" id="departureDate" 
-                       placeholder="<%= flight.departure %>" value="<%= flight.departure %>"  min="" onchange="checkDate()" required>
-                </div>
-                <div class="mb-3 col-md-3">
-                    <label class="form-label">Arrival</label>
-                    <input type="datetime-local" class="form-control" name="flight[arrival]" id="arrivalDate" 
-                        placeholder="<%= flight.arrival %>" value="<%= flight.arrival %>"  min="" onchange="checkDate()" required>
                 </div>
             </div>
 
@@ -211,14 +235,14 @@
                         <label for="Baggage" class="form-label">Baggage</label>
                         <input type="number" class="form-control" name="flight[classInfo.business.busBaggage]"
                             value="<%= flight.classInfo.business.busBaggage %>" 
-                            placeholder="<%= flight.classInfo.business.busBaggage %> kg" min="0" required>
+                            placeholder="<%= flight.classInfo.business.busBaggage %> kg" min="0">
                     </div>
                     <!-- Cabin Baggage -->
                     <div class="mb-5 col-md-5">
                         <label for="CabinBaggage" class="form-label">Cabin baggage</label>
                         <input type="number" class="form-control" name="flight[classInfo.business.busCabinBaggage]"
                             value="<%= flight.classInfo.business.busCabinBaggage %>" 
-                            placeholder="<%= flight.classInfo.business.busCabinBaggage %> kg" min="0" required>
+                            placeholder="<%= flight.classInfo.business.busCabinBaggage %> kg" min="0">
                     </div>
                     <!-- Facility -->
                     <div class="mb-2 col-md-2">

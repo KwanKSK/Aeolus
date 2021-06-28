@@ -14,19 +14,31 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="/scripts/check-pwd.js" defer></script>
-    <script src="/scripts/set-min-dateonly.js" defer></script>
+    <script src="/scripts/set-min-date.js" defer></script>
+    <script src="/scripts/set-max-date.js" defer></script>
     <script src="/scripts/check-origin-destination.js" defer></script>
     <script src="/scripts/check-passenger.js" defer></script>
-
+    <script src="/scripts/page-go-back.js" defer></script>
 
     <link rel="stylesheet" href="/styles/banner.css">
     <link rel="stylesheet" href="/styles/profile-user.css">
     <link rel="stylesheet" href="/styles/flight.css">
+    <link rel="stylesheet" href="/styles/content.css">
     
 
     <link rel="icon" href="/images/miniLOGO.png">
     <title>Aeolus Travel</title>
 </head>
 <body style="background-color:#d0d0ce;">
+
+    <% if(error && error.length > 0) { %>
+        <div class="alert alert-danger" style="top: 65px;" role="alert">
+            <%= error %>
+        </div>  
+    <% } %> 
     
+    <% if(success && success.length > 0) { %>
+        <div class="alert alert-success" style="top: 65px;" role="alert">
+            <%= success %>
+        </div>
+    <% } %> 

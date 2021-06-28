@@ -4,12 +4,15 @@
 <div class="detail-nav fix-nav fixed-top">
     <a class="active" href="/admin/flight"><img src="/images/miniLOGO.png" class="brand-icon"><b> FLIGHT </b></a>
     <a href="/admin/flight/add"><i class="bi bi-plus-circle"></i> Add </a>
+    <!--
     <div class="search-container">
       <form action="/action_page.php">
         <input type="text" placeholder="Search.." name="search">
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
     </div>
+    -->
+    
 </div>
 
 <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 g-6 box-info">
@@ -24,16 +27,19 @@
           <!-- Flight info -->
           <div class="row">
             <div class="mb-1 col-md-1"></div>
-            <div class="mb-4 col-md-4">
+            <div class="mb-3 col-md-3">
               <strong><%= flight.origin.IATA %> (<%= flight.origin.city%>, <%= flight.origin.country %>) </strong> <br>
-              <%= flight.departure %>
+              Date: <%= flight.departure %> | Time: <%= flight.departureTime %>
             </div>
             <div class="mb-1 col-md-1"><i class="bi bi-arrow-right"></i></div>
             <div class="mb-4 col-md-4">
               <strong><%= flight.destination.IATA %> (<%= flight.destination.city %>, <%= flight.destination.country %>) </strong><br>
-              <%= flight.arrival %>
+              Date: <%= flight.arrival %> | Time: <%= flight.arrivalTime %>
             </div>
-            <div class="mb-1 col-md-1"><strong>Mileage</strong> <%= flight.mileage %></div>
+            <div class="mb-2 col-md-2">
+              <strong>Mileage:</strong> <%= flight.mileage %> <br>
+              <strong>Transit: </strong> <%= flight.transit %>
+            </div>
           </div>
 
           <!-- class info -->

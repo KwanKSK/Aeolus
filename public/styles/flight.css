@@ -1,17 +1,28 @@
+body{
+    font-family: "Karla", sans-serif;
+}
+
 .searchbox{
     border-radius: 5px; 
     background: #FFFFFF;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+}
 
 .flight-tab{
     font-size: medium;
-    background-color: rgb(160, 205, 246);
+    color: #FFFFFF;
+    text-align: center;
+    background-color:rgb(21, 150, 255);
     border-color: #FFFFFF;
-    border-radius: 5px; }
-
+    border-radius: 5px; 
+}
+.flight-tab:hover{
+    background-color: rgb(111, 190, 255);
+}
 
 .searchbutton{
     padding: 5px 15px 5px 15px;
     margin-top: 25px;
-    margin-bottom: 0px; }
+    margin-bottom: 0px; 
+}
 
