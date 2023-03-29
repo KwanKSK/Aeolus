@@ -1,1 +1,2 @@
-Project for CSS227 Web Programming
+<b>Project: Flight Booking Website, Aeolus for CSS227 Web Programming</b>
+
